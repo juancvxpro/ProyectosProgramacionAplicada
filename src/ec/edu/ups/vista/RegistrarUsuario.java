@@ -310,11 +310,7 @@ public class RegistrarUsuario extends javax.swing.JInternalFrame {
             Limpiar();
         }
         ;
-        try {
-            controlador.guardarDatos("datos/Autoridad.obj");
-        } catch (IOException ex) {
-            Logger.getLogger(RegistrarUsuario.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        controlador.guardarDatos("datos/Autoridad.obj");
 
     }//GEN-LAST:event_btnGuardar1ActionPerformed
 

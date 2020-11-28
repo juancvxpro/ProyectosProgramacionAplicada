@@ -25,22 +25,23 @@ import javax.swing.JOptionPane;
  * @author user
  */
 public class RegistrarMatrimonio extends javax.swing.JInternalFrame {
-    
+
     private controladorPersona controladorPersona;
     private controladorAutoridad controladorAutoridad;
     private controladorMatrimonio controladorMatrimonio;
-    
-    public RegistrarMatrimonio(controladorPersona controladorPersona,controladorAutoridad controladorAutoridad,controladorMatrimonio controladorMatrimonio ) {
+
+    public RegistrarMatrimonio(controladorPersona controladorPersona, controladorAutoridad controladorAutoridad, controladorMatrimonio controladorMatrimonio) {
         initComponents();
-        this.controladorAutoridad=controladorAutoridad;
-        this.controladorPersona=controladorPersona;
-        this.controladorMatrimonio= controladorMatrimonio;
+        this.controladorAutoridad = controladorAutoridad;
+        this.controladorPersona = controladorPersona;
+        this.controladorMatrimonio = controladorMatrimonio;
     }
-   public void cargarSiguienteCodigo(){
-   lblCodigoR.setText(String.valueOf(controladorAutoridad.generarId()));
-   
-   }
-   
+
+    public void cargarSiguienteCodigo() {
+        lblCodigoR.setText(String.valueOf(controladorAutoridad.generarId()));
+
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -509,31 +510,33 @@ public class RegistrarMatrimonio extends javax.swing.JInternalFrame {
                                 .addGap(180, 180, 180)
                                 .addComponent(jLabel7))
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(145, 145, 145)
+                                .addGap(77, 77, 77)
                                 .addComponent(lblAutoridad)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(lblAutoridad1))))
+                                .addGap(49, 49, 49)
+                                .addComponent(lblAutoridad1, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnRegistrarM)
-                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(jPanel3Layout.createSequentialGroup()
-                                    .addComponent(jLabel4)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(lblFechaRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(140, 140, 140)
-                                    .addComponent(jLabel5)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(txtLugar, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(btnRegistrarM)
+                                .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(41, 41, 41)
-                                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jLabel4)
+                                .addGap(28, 28, 28)
+                                .addComponent(lblFechaRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGap(27, 27, 27)
-                                .addComponent(btnLimpiar)))))
-                .addContainerGap(76, Short.MAX_VALUE))
+                                .addComponent(btnLimpiar))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(41, 41, 41)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addComponent(jLabel5)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(txtLugar, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(248, 248, 248))
+                                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -546,7 +549,7 @@ public class RegistrarMatrimonio extends javax.swing.JInternalFrame {
                     .addComponent(jLabel7)
                     .addComponent(lblAutoridad)
                     .addComponent(lblAutoridad1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(lblFechaRegistro)
@@ -578,192 +581,165 @@ public class RegistrarMatrimonio extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBuscarContrayenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarContrayenteActionPerformed
-        Persona comparar = new Persona ();
+        Persona comparar = new Persona();
         comparar.setCedula(txtCedulaC1.getText().trim());
-         Optional<Persona> p= controladorPersona.buscar(comparar);
-         Persona persona =p.get();
-          System.out.println(""+persona);
-           if (persona!=null){
+        Optional<Persona> p = controladorPersona.buscar(comparar);
+        Persona persona = p.get();
+        System.out.println("" + persona);
+        if (persona != null) {
             txtNombre1.setText(persona.getNombres());
             txtApellido1.setText(persona.getApellidos());
             txtDireccion.setText(persona.getDireccion());
             txtFN1.setText(persona.getFechaNacimiento().toString());
             txtGenero1.setText(persona.getGenero());
-             persona.setRol("Contrayente");
-             if(controladorPersona.actualizar(persona)){
-            JOptionPane.showMessageDialog(this, "Datos Contrayente1");
-           }
-             try {
+            persona.setRol("Contrayente");
+            if (controladorPersona.actualizar(persona)) {
+                JOptionPane.showMessageDialog(this, "Datos Contrayente1");
+            }
             controladorMatrimonio.guardarDatos("datos/Persona.obj");
-        } catch (IOException ex) {
-            Logger.getLogger(RegistrarUsuario.class.getName()).log(Level.SEVERE, null, ex);
         }
-           }
-         
-         
-        
+
     }//GEN-LAST:event_btnBuscarContrayenteActionPerformed
 
     private void btnBuscarTestigo2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarTestigo2ActionPerformed
-        Persona comparar = new Persona ();
+        Persona comparar = new Persona();
         comparar.setCedula(txtTestigoCed.getText().trim());
-         Optional<Persona> p= controladorPersona.buscar(comparar);
-         Persona persona =p.get();
-          System.out.println(""+persona);
-      
-          persona.setRol("Testigo");
-           if (persona!=null){
-            lbl7.setText(persona.getNombres()+" "+persona.getApellidos()+" "+persona.getCedula());
-            
-           if(controladorPersona.actualizar(persona)){
-            JOptionPane.showMessageDialog(this, "Datos Testigo 1");
-           }
-           
-           try {
+        Optional<Persona> p = controladorPersona.buscar(comparar);
+        Persona persona = p.get();
+        System.out.println("" + persona);
+
+        persona.setRol("Testigo");
+        if (persona != null) {
+            lbl7.setText(persona.getNombres() + " " + persona.getApellidos() + " " + persona.getCedula());
+
+            if (controladorPersona.actualizar(persona)) {
+                JOptionPane.showMessageDialog(this, "Datos Testigo 1");
+            }
+
             controladorMatrimonio.guardarDatos("datos/Persona.obj");
-        } catch (IOException ex) {
-            Logger.getLogger(RegistrarUsuario.class.getName()).log(Level.SEVERE, null, ex);
         }
-           }
-         
+
     }//GEN-LAST:event_btnBuscarTestigo2ActionPerformed
 
     private void btnBuscarContrayente1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarContrayente1ActionPerformed
-        Persona comparar = new Persona ();
+        Persona comparar = new Persona();
         comparar.setCedula(txtCedulaC1.getText().trim());
-         Optional<Persona> p= controladorPersona.buscar(comparar);
-         Persona persona =p.get();
-          System.out.println(""+persona);
-           if (persona!=null){
+        Optional<Persona> p = controladorPersona.buscar(comparar);
+        Persona persona = p.get();
+        System.out.println("" + persona);
+        if (persona != null) {
             txt3.setText(persona.getNombres());
             txt5.setText(persona.getApellidos());
             txt.setText(persona.getDireccion());
             txt4.setText(persona.getFechaNacimiento().toString());
             txtGenero.setText(persona.getGenero());
-             persona.setRol("Contrayente");
-             if(controladorPersona.actualizar(persona)){
-            JOptionPane.showMessageDialog(this, "Datos Contrayente1");
-           }
-             try {
+            persona.setRol("Contrayente");
+            if (controladorPersona.actualizar(persona)) {
+                JOptionPane.showMessageDialog(this, "Datos Contrayente1");
+            }
             controladorMatrimonio.guardarDatos("datos/Persona.obj");
-        } catch (IOException ex) {
-            Logger.getLogger(RegistrarUsuario.class.getName()).log(Level.SEVERE, null, ex);
         }
-           }
     }//GEN-LAST:event_btnBuscarContrayente1ActionPerformed
 
     private void btnBuscarTestigo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarTestigo1ActionPerformed
-       Persona comparar = new Persona ();
+        Persona comparar = new Persona();
         comparar.setCedula(txtTestigoCed1.getText().trim());
-         Optional<Persona> p= controladorPersona.buscar(comparar);
-         Persona persona =p.get();
-          System.out.println(""+persona);
-      
-          persona.setRol("Testigo");
-           if (persona!=null){
-            lbl7.setText(persona.getNombres()+" "+persona.getApellidos()+" "+persona.getCedula());
-            
-           if(controladorPersona.actualizar(persona)){
-            JOptionPane.showMessageDialog(this, "Datos Testigo 1");
-           }
-           try {
+        Optional<Persona> p = controladorPersona.buscar(comparar);
+        Persona persona = p.get();
+        System.out.println("" + persona);
+
+        persona.setRol("Testigo");
+        if (persona != null) {
+            lbl7.setText(persona.getNombres() + " " + persona.getApellidos() + " " + persona.getCedula());
+
+            if (controladorPersona.actualizar(persona)) {
+                JOptionPane.showMessageDialog(this, "Datos Testigo 1");
+            }
             controladorMatrimonio.guardarDatos("datos/Persona.obj");
-        } catch (IOException ex) {
-            Logger.getLogger(RegistrarUsuario.class.getName()).log(Level.SEVERE, null, ex);
         }
-           }
     }//GEN-LAST:event_btnBuscarTestigo1ActionPerformed
 
     private void formInternalFrameActivated(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameActivated
-       cargarSiguienteCodigo();
+        cargarSiguienteCodigo();
         lblAutoridad1.setText(controladorAutoridad.getAutoridad().getNombres()
-               +" "+controladorAutoridad.getAutoridad().getApellidos()+" "+controladorAutoridad.getAutoridad().getCargo());
+                + " " + controladorAutoridad.getAutoridad().getApellidos() + " " + controladorAutoridad.getAutoridad().getCargo());
         Date fecha = new Date();
-         lblFechaRegistro.setText(fecha.toString());
-         controladorPersona.cargarDatos();
-       
+        lblFechaRegistro.setText(fecha.toString());
+        controladorPersona.cargarDatos();
+
     }//GEN-LAST:event_formInternalFrameActivated
 
     private void btnRegistrarMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarMActionPerformed
-        
+
         Persona t1 = new Persona();
         Persona t2 = new Persona();
-        
-        Persona Com= new Persona();
+
+        Persona Com = new Persona();
         Persona Com2 = new Persona();
-        
+
         Com.setCedula(txtCedulaC1.getText().trim());
         Com2.setCedula(txtCedulaC3.getText().trim());
-       
-         Optional<Persona> p= controladorPersona.buscar(Com);
-          
-         Optional<Persona> p2= controladorPersona.buscar(Com2);
-         t1=p.get();
-         t2=p2.get();
-        
-         Autoridad a= controladorAutoridad.getAutoridad();
-        
-        
+
+        Optional<Persona> p = controladorPersona.buscar(Com);
+
+        Optional<Persona> p2 = controladorPersona.buscar(Com2);
+        t1 = p.get();
+        t2 = p2.get();
+
+        Autoridad a = controladorAutoridad.getAutoridad();
+
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-         Date fN=null;
+        Date fN = null;
         try {
-             fN = formato.parse(txtFN1.getText().trim());
+            fN = formato.parse(txtFN1.getText().trim());
         } catch (ParseException ex) {
             Logger.getLogger(RegistrarMatrimonio.class.getName()).log(Level.SEVERE, null, ex);
         }
-         
-         Date f=null;
+
+        Date f = null;
         try {
-             f = formato.parse(txt4.getText().trim());
+            f = formato.parse(txt4.getText().trim());
         } catch (ParseException ex) {
             Logger.getLogger(RegistrarMatrimonio.class.getName()).log(Level.SEVERE, null, ex);
         }
         Date fecha = new Date();
-         Persona c1= new Persona(txtCedulaC1.getText().trim(),txtNombre1.getText().trim(),txtApellido1.getText().trim(),txtDireccion.getText().trim(),txtGenero1.getText().trim(),fN,"Casado "+txt3.getText().trim()+" "+txtApellido1,"Ciudadano");
-           Persona c2= new Persona(txtCedulaC3.getText().trim(),txt3.getText().trim(),txt5.getText().trim(),txt.getText().trim(),txtGenero.getText().trim(),f,"Casado "+txtNombre1.getText().trim()+" "+txt5,"Ciudadano");
-         //String cedula, String nombres, String apellidos, String direccion, String genero, Date fechaNacimiento, String estadoCivil, String rol
+        Persona c1 = new Persona(txtCedulaC1.getText().trim(), txtNombre1.getText().trim(), txtApellido1.getText().trim(), txtDireccion.getText().trim(), txtGenero1.getText().trim(), fN, "Casado " + txt3.getText().trim() + " " + txtApellido1, "Ciudadano");
+        Persona c2 = new Persona(txtCedulaC3.getText().trim(), txt3.getText().trim(), txt5.getText().trim(), txt.getText().trim(), txtGenero.getText().trim(), f, "Casado " + txtNombre1.getText().trim() + " " + txt5, "Ciudadano");
+        //String cedula, String nombres, String apellidos, String direccion, String genero, Date fechaNacimiento, String estadoCivil, String rol
         //int codigoM, String lugar, Date fecha, Persona contrayente1, Persona contreyente2, Persona testigo1, Persona testigo2, Persona autoridad
-        Matrimonio m = new Matrimonio(Integer.parseInt(lblCodigoR.getText().trim()),txtLugar.getText().trim(),fecha,c1,c2,t1,t2,a);
-        
+        Matrimonio m = new Matrimonio(Integer.parseInt(lblCodigoR.getText().trim()), txtLugar.getText().trim(), fecha, c1, c2, t1, t2, a);
+
         controladorMatrimonio.crear(m);
-        
+
         controladorPersona.actualizar(c1);
         controladorPersona.actualizar(c2);
-        
+
         JOptionPane.showMessageDialog(this, "MATRIMONIO REGISTRADO CON EXITO : FELICITACIONES A LOS NOVIOS");
-        try {
-            controladorMatrimonio.guardarDatos("datos/Persona.obj");
-        } catch (IOException ex) {
-            Logger.getLogger(RegistrarUsuario.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        try {
-            controladorMatrimonio.guardarDatos("datos/Matrimonio.obj");
-        } catch (IOException ex) {
-            Logger.getLogger(RegistrarUsuario.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
+        controladorMatrimonio.guardarDatos("datos/Persona.obj");
+
+        controladorMatrimonio.guardarDatos("datos/Matrimonio.obj");
+
     }//GEN-LAST:event_btnRegistrarMActionPerformed
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
-    lblFechaRegistro.setText("");
-    txtLugar.setText("");
-    cargarSiguienteCodigo();
-    txtCedulaC1.setText("");   
-    txtNombre1.setText(""); 
-    txtApellido1.setText(""); 
-    txtDireccion.setText(""); 
-    txtFN1.setText(""); 
-    txtGenero1.setText(""); 
-    lbl7.setText(""); 
-     txtCedulaC3.setText("");   
-    txt3.setText(""); 
-    txt5.setText(""); 
-    txt4.setText(""); 
-    txtGenero.setText(""); 
-    txtTestigoCed1.setText(""); 
-    lbl9.setText(""); 
-            
+        lblFechaRegistro.setText("");
+        txtLugar.setText("");
+        cargarSiguienteCodigo();
+        txtCedulaC1.setText("");
+        txtNombre1.setText("");
+        txtApellido1.setText("");
+        txtDireccion.setText("");
+        txtFN1.setText("");
+        txtGenero1.setText("");
+        lbl7.setText("");
+        txtCedulaC3.setText("");
+        txt3.setText("");
+        txt5.setText("");
+        txt4.setText("");
+        txtGenero.setText("");
+        txtTestigoCed1.setText("");
+        lbl9.setText("");
+
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

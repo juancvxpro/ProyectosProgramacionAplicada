@@ -19,7 +19,8 @@ public class Autoridad extends Persona {
 
     private String pass;
 
-    public Autoridad(String cedula, String nombre, String apellido, String direccion, String genero, Date fechaNacimiento, String estadoCivil, String rol, String cargo, String correo, String pass) {
+    public Autoridad(String cedula, String nombre, String apellido, String direccion, String genero, 
+            Date fechaNacimiento, String estadoCivil, String rol, String cargo, String correo, String pass) {
         super(cedula, nombre, apellido, direccion, genero, fechaNacimiento, estadoCivil, rol);
         this.cargo = cargo;
         this.correo = correo;

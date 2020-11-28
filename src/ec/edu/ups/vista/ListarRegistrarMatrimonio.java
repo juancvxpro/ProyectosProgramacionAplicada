@@ -18,9 +18,10 @@ import javax.swing.table.DefaultTableModel;
 public class ListarRegistrarMatrimonio extends javax.swing.JInternalFrame {
 
     private controladorMatrimonio controladorMatrimonio;
+
     public ListarRegistrarMatrimonio(controladorMatrimonio controladorMatrimonio) {
         initComponents();
-        this.controladorMatrimonio= controladorMatrimonio;
+        this.controladorMatrimonio = controladorMatrimonio;
     }
 
     /**
@@ -96,24 +97,23 @@ public class ListarRegistrarMatrimonio extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formInternalFrameActivated(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameActivated
-          controladorMatrimonio.cargarDatos();
+        controladorMatrimonio.cargarDatos();
         DefaultTableModel modelo = (DefaultTableModel) tblRegistros.getModel();
         modelo.setRowCount(0);
-        if(controladorMatrimonio.registros()!=null){
-         for (Iterator it = controladorMatrimonio.registros().iterator(); it.hasNext();) {
-            Matrimonio matrimonio = (Matrimonio) it.next();
-            Object[] rowData = {matrimonio.getCodigoM(),matrimonio.getLugar(),matrimonio.getFecha().toString(),matrimonio.getContrayente1().getNombres()
-                    +" "+matrimonio.getContrayente1().getApellidos(),matrimonio.getContreyente2().getNombres()+" "+matrimonio.getContreyente2().getApellidos()
-                    , matrimonio.getTestigo1().getNombres().concat(matrimonio.getTestigo1().getApellidos()),matrimonio.getTestigo2().getNombres()+" "+matrimonio.getTestigo2().getApellidos(),matrimonio.getAutoridad().getNombres()
-                    +" "+matrimonio.getAutoridad().getApellidos()};
-            modelo.addRow(rowData);
-            tblRegistros.setModel(modelo);
-        }
-        }else{
+        if (controladorMatrimonio.registros() != null) {
+            for (Iterator it = controladorMatrimonio.registros().iterator(); it.hasNext();) {
+                Matrimonio matrimonio = (Matrimonio) it.next();
+                Object[] rowData = {matrimonio.getCodigoM(), matrimonio.getLugar(), matrimonio.getFecha().toString(), matrimonio.getContrayente1().getNombres()
+                    + " " + matrimonio.getContrayente1().getApellidos(), matrimonio.getContreyente2().getNombres() + " " + matrimonio.getContreyente2().getApellidos(),
+                    matrimonio.getTestigo1().getNombres().concat(matrimonio.getTestigo1().getApellidos()), matrimonio.getTestigo2().getNombres() + " " + matrimonio.getTestigo2().getApellidos(), matrimonio.getAutoridad().getNombres()
+                    + " " + matrimonio.getAutoridad().getApellidos()};
+                modelo.addRow(rowData);
+                tblRegistros.setModel(modelo);
+            }
+        } else {
             System.out.println("LISTA VACIA");
         }
     }//GEN-LAST:event_formInternalFrameActivated
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;

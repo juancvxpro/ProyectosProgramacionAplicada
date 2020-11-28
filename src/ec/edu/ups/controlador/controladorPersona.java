@@ -1,13 +1,7 @@
 package ec.edu.ups.controlador;
 
 import ec.edu.ups.modelo.Persona;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import static java.lang.Math.E;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -21,8 +15,6 @@ public class controladorPersona extends AbstractControlador<Persona> {
     public controladorPersona(String ruta) {
         super(ruta);
     }
-    
-    
 
     @Override
     public boolean validar(Persona objeto) {
@@ -84,6 +76,5 @@ public class controladorPersona extends AbstractControlador<Persona> {
         return listaP;
 
     }
-    
-   
+
 }

@@ -22,35 +22,38 @@ import java.util.Optional;
 public abstract class AbstractControlador<E> {
 
     private List<E> lista;
-    
+
     String ruta;
 
-    public AbstractControlador(String ruta)  {
+    public AbstractControlador(String ruta) {
         lista = new ArrayList();
-        this.ruta=ruta;
-        
+        this.ruta = ruta;
+
         cargarDatos();
 
     }
 
-    public final void cargarDatos()    {
-        
-        try{
-        FileInputStream archivo = new FileInputStream(ruta);
-        ObjectInputStream datos = new ObjectInputStream (archivo);
-        lista =(List<E>) datos.readObject();
-        }catch(ClassNotFoundException e){
-        e.printStackTrace();
-        }catch (IOException e){
-        e.printStackTrace();
+    public final void cargarDatos() {
+
+        try {
+            FileInputStream archivo = new FileInputStream(ruta);
+            ObjectInputStream datos = new ObjectInputStream(archivo);
+            lista = (List<E>) datos.readObject();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        
+
     }
 
-    public void guardarDatos(String ruta) throws FileNotFoundException, IOException {
+    public void guardarDatos(String ruta) {
+        try {
         FileOutputStream archivo = new FileOutputStream(ruta);
         ObjectOutputStream datos = new ObjectOutputStream(archivo);
         datos.writeObject(lista);
+        } catch (IOException e) {
+        }
     }
 
     public boolean crear(E objeto) {

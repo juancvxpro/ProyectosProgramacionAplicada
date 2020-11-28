@@ -25,6 +25,7 @@ public class VentanaIniciarSesion extends javax.swing.JInternalFrame {
      */
     public VentanaIniciarSesion(VentanaPrincipal ventanaPrincipal, controladorAutoridad controladorUsuario) {
         initComponents();
+        controladorUsuario.cargarDatos();
         this.ventanaPrincipal = ventanaPrincipal;
         this.controladorUsuario = controladorUsuario;
     }
@@ -48,6 +49,23 @@ public class VentanaIniciarSesion extends javax.swing.JInternalFrame {
         setBackground(new java.awt.Color(0, 204, 255));
         setClosable(true);
         setMaximizable(true);
+        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameActivated(evt);
+            }
+            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+            }
+        });
 
         lblCorreo.setFont(new java.awt.Font("Century", 1, 14)); // NOI18N
         lblCorreo.setForeground(new java.awt.Color(255, 255, 255));
@@ -114,7 +132,7 @@ public class VentanaIniciarSesion extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
-       controladorUsuario.cargarDatos();
+        
         String usuario = txtCorreo.getText();
         String pass = "";
         char[] pass1 = txtPass.getPassword();
@@ -140,6 +158,10 @@ public class VentanaIniciarSesion extends javax.swing.JInternalFrame {
         }
 
     }//GEN-LAST:event_btnIniciarSesionActionPerformed
+
+    private void formInternalFrameActivated(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameActivated
+      controladorUsuario.cargarDatos();
+    }//GEN-LAST:event_formInternalFrameActivated
     public void Limpiar() {
         txtCorreo.setText("");
         txtPass.setText("");

@@ -43,21 +43,18 @@ public class GestionPersona extends javax.swing.JInternalFrame {
     public void cargarPersonasTbl() {
         DefaultTableModel modelo = (DefaultTableModel) tblPersonas.getModel();
         modelo.setRowCount(0);
-        if(controlador.personas()!=null){
-         for (Iterator it = controlador.personas().iterator(); it.hasNext();) {
-            Persona persona = (Persona) it.next();
-            Object[] rowData = {persona.getCedula(),persona.getNombres(),persona.getApellidos(),persona.getDireccion(),persona.getFechaNacimiento().toString(),persona.getGenero(),persona.getEstadoCivil()};
-            modelo.addRow(rowData);
-            tblPersonas.setModel(modelo);
-        }
-        }else{
+        if (controlador.personas() != null) {
+            for (Iterator it = controlador.personas().iterator(); it.hasNext();) {
+                Persona persona = (Persona) it.next();
+                Object[] rowData = {persona.getCedula(), persona.getNombres(), persona.getApellidos(), persona.getDireccion(), persona.getFechaNacimiento().toString(), persona.getGenero(), persona.getEstadoCivil()};
+                modelo.addRow(rowData);
+                tblPersonas.setModel(modelo);
+            }
+        } else {
             System.out.println("LISTA VACIA");
         }
-       
 
     }
-    
-  
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -345,26 +342,22 @@ public class GestionPersona extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-      SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
         Date fechaN = new Date();
         try {
             fechaN = formato.parse(txtFechaN.getText().trim());
         } catch (ParseException ex) {
             System.out.println(ex);
         }
-        Persona persona = new Persona(txtGcedula.getText().trim(),txtGnombre.getText().trim(),txtGapellido.getText().trim(),txtGDireccion.getText().trim(),
-                cbxGenero1.getSelectedItem().toString().trim(),fechaN,txtEstadoCivil.getText().trim(),"Ciudadano");
-        if(controlador.crear(persona)){
-          JOptionPane.showMessageDialog(this, "Persona creada exitosamente");
-          Limpiar();
-          cargarPersonasTbl();
-          try {
+        Persona persona = new Persona(txtGcedula.getText().trim(), txtGnombre.getText().trim(), txtGapellido.getText().trim(), txtGDireccion.getText().trim(),
+                cbxGenero1.getSelectedItem().toString().trim(), fechaN, txtEstadoCivil.getText().trim(), "Ciudadano");
+        if (controlador.crear(persona)) {
+            JOptionPane.showMessageDialog(this, "Persona creada exitosamente");
+            Limpiar();
+            cargarPersonasTbl();
             controlador.guardarDatos("datos/Persona.obj");
-        } catch (IOException ex) {
-            Logger.getLogger(RegistrarUsuario.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        }else{
-        JOptionPane.showMessageDialog(this, "No se pudo crear a la Persona :ERROR");
+        } else {
+            JOptionPane.showMessageDialog(this, "No se pudo crear a la Persona :ERROR");
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
@@ -373,28 +366,24 @@ public class GestionPersona extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_cbxGenero1ActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
         Date fechaN = new Date();
         try {
             fechaN = formato.parse(txtFechaN.getText().trim());
         } catch (ParseException ex) {
             System.out.println(ex);
         }
-         Persona persona = new Persona(txtGcedula.getText().trim(),txtGnombre.getText().trim(),txtGapellido.getText().trim(),txtGDireccion.getText().trim(),
-                cbxGenero1.getSelectedItem().toString().trim(),fechaN,txtEstadoCivil.getText().trim(),"Ciudadano");  
-        
-        if(controlador.actualizar(persona)){
+        Persona persona = new Persona(txtGcedula.getText().trim(), txtGnombre.getText().trim(), txtGapellido.getText().trim(), txtGDireccion.getText().trim(),
+                cbxGenero1.getSelectedItem().toString().trim(), fechaN, txtEstadoCivil.getText().trim(), "Ciudadano");
+
+        if (controlador.actualizar(persona)) {
             JOptionPane.showMessageDialog(this, "Persona actualizada exitosamente");
-           Limpiar();
-          cargarPersonasTbl();
-        }else{
-        JOptionPane.showMessageDialog(this, "No se pudo actualizar la persona :ERROR");
+            Limpiar();
+            cargarPersonasTbl();
+        } else {
+            JOptionPane.showMessageDialog(this, "No se pudo actualizar la persona :ERROR");
         }
-             try {
-            controlador.guardarDatos("datos/Persona.obj");
-        } catch (IOException ex) {
-            Logger.getLogger(RegistrarUsuario.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        controlador.guardarDatos("datos/Persona.obj");
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
@@ -402,49 +391,41 @@ public class GestionPersona extends javax.swing.JInternalFrame {
         if (d == JOptionPane.YES_OPTION) {
             Persona comparar = new Persona();
             comparar.setCedula(txtGcedula.getText().trim());
-            Optional<Persona> p= controlador.buscar(comparar);
-            Persona persona=p.get();
-            System.out.println(""+persona);
-            
+            Optional<Persona> p = controlador.buscar(comparar);
+            Persona persona = p.get();
+            System.out.println("" + persona);
+
             if (controlador.eliminar(persona)) {
                 JOptionPane.showMessageDialog(this, "Persona eliminada exitosamente");
-                 cargarPersonasTbl();
+                cargarPersonasTbl();
             } else if (d == JOptionPane.NO_OPTION) {
-                 cargarPersonasTbl();
+                cargarPersonasTbl();
             }
-            
+
         }
-         try {
-            controlador.guardarDatos("datos/Persona.obj");
-        } catch (IOException ex) {
-            Logger.getLogger(RegistrarUsuario.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        controlador.guardarDatos("datos/Persona.obj");
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarActionPerformed
-       if(controlador.personas()!=null){
-       cargarPersonasTbl();
-       
+        if (controlador.personas() != null) {
+            cargarPersonasTbl();
+
             controlador.cargarDatos();
-       
-       
-       }
+
+        }
     }//GEN-LAST:event_btnListarActionPerformed
 
     private void tblPersonasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPersonasMouseClicked
         int index = tblPersonas.getSelectedRow();
-        
-        String cedula = ""+tblPersonas.getValueAt(index, 0);
+
+        String cedula = "" + tblPersonas.getValueAt(index, 0);
         String nombre = "" + tblPersonas.getValueAt(index, 1);
         String apellido = "" + tblPersonas.getValueAt(index, 2);
         String Direccion = "" + tblPersonas.getValueAt(index, 3);
         String fechaN = "" + tblPersonas.getValueAt(index, 4);
-        String genero="" + tblPersonas.getValueAt(index, 5);
-        String eCivil="" + tblPersonas.getValueAt(index, 6);
-        
-        
-        
-        
+        String genero = "" + tblPersonas.getValueAt(index, 5);
+        String eCivil = "" + tblPersonas.getValueAt(index, 6);
+
         txtGcedula.setText(cedula);
         txtGnombre.setText(nombre);
         txtGapellido.setText(apellido);
@@ -452,8 +433,7 @@ public class GestionPersona extends javax.swing.JInternalFrame {
         txtFechaN.setText(fechaN);
         cbxGenero1.setSelectedItem(genero.trim());
         txtEstadoCivil.setText(eCivil);
-        
-        
+
     }//GEN-LAST:event_tblPersonasMouseClicked
 
     public void Limpiar() {

@@ -5,7 +5,6 @@
  */
 package ec.edu.ups.vista;
 
-
 import ec.edu.ups.controlador.controladorAutoridad;
 import ec.edu.ups.controlador.controladorMatrimonio;
 import ec.edu.ups.controlador.controladorPersona;
@@ -24,13 +23,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private GestionPersona registrarPersona;
     private RegistrarMatrimonio registrarMatrimonio;
     
+    private ListarRegistrarMatrimonio listaM;
+
     private RegistrarUsuario registrarUsuario;
 
     private controladorPersona controladorPersona;
     private controladorAutoridad controladorAutoridad;
     private controladorMatrimonio controladorMatrimonio;
-    
-    
 
     public VentanaPrincipal() {
         initComponents();
@@ -42,11 +41,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         ventanaIniciarSesion = new VentanaIniciarSesion(this, controladorAutoridad);
         registrarPersona = new GestionPersona(controladorPersona);
-        registrarMatrimonio = new RegistrarMatrimonio(controladorPersona,controladorAutoridad,controladorMatrimonio);
-        
+        registrarMatrimonio = new RegistrarMatrimonio(controladorPersona, controladorAutoridad, controladorMatrimonio);
+        listaM = new ListarRegistrarMatrimonio (controladorMatrimonio);
+
         registrarUsuario = new RegistrarUsuario(controladorAutoridad);
-        
-        
 
     }
 
@@ -64,6 +62,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         GestionMenu = new javax.swing.JMenu();
         btnRegistroMatrimonio = new javax.swing.JMenuItem();
         btnGestionPersona = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -136,6 +135,15 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         });
         GestionMenu.add(btnGestionPersona);
 
+        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        jMenuItem1.setText("Listado de Registros de Matrimonio");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        GestionMenu.add(jMenuItem1);
+
         menuBar.add(GestionMenu);
 
         setJMenuBar(menuBar);
@@ -184,6 +192,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         desktopPane.add(registrarPersona);
         registrarPersona.setVisible(true);
     }//GEN-LAST:event_btnGestionPersonaActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        desktopPane.add(listaM);
+        listaM.setVisible(true);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -298,6 +311,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem btnRegistroMatrimonio;
     private javax.swing.JMenuItem btnSalirMenu;
     private javax.swing.JDesktopPane desktopPane;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuBar menuBar;
     // End of variables declaration//GEN-END:variables
 
