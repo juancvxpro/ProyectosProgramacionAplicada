@@ -7,8 +7,12 @@ package ec.edu.ups.controlador;
 
 import ec.edu.ups.modelo.Actividad;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  *
@@ -16,9 +20,14 @@ import java.util.List;
  */
 public class controladorActividad extends AbstractControlador<Actividad> {
 
+    private Pattern patron;
+    private Matcher corpus;
+
     public controladorActividad(String ruta) {
         super(ruta);
     }
+     
+    
 
     @Override
     public boolean validar(Actividad objeto) {
@@ -42,7 +51,22 @@ public class controladorActividad extends AbstractControlador<Actividad> {
         }
 
     }
-
+    public void ingresarRegex(String regex){
+     patron = Pattern.compile(regex);
+    }
+    
+   
+    public Set<String> obtenerUrl(String texto){
+        
+        Set<String> resultado= new HashSet();
+        corpus= patron.matcher(texto);
+        
+        while (corpus.find()){
+        resultado.add(corpus.group(0));
+        }
+        return resultado;
+    
+    }
     public List<Actividad> actividades() {
 
         List<Actividad> lista = new ArrayList();

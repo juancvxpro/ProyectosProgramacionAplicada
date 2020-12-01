@@ -6,6 +6,7 @@
 package ec.edu.ups.controlador;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -17,38 +18,41 @@ import java.util.Optional;
 /**
  *
  * @author user
+ * @param <E>
  */
-public abstract class AbstractControlador<E> {
+public abstract class AbstractControlador<E>  {
 
+    private String ruta;
     private List<E> lista;
 
-    String ruta;
+  
 
     public AbstractControlador(String ruta) {
         lista = new ArrayList();
-        this.ruta = ruta;
-
-        cargarDatos();
+       this.ruta=ruta;
+       cargarDatos();
+      
 
     }
 
-    public final void cargarDatos() {
-
-        try {
+    public  void cargarDatos(){
+        try{
             FileInputStream archivo = new FileInputStream(ruta);
             ObjectInputStream datos = new ObjectInputStream(archivo);
-            lista = (List<E>) datos.readObject();
-        } catch (ClassNotFoundException | IOException e) {
+                lista= (List<E>) datos.readObject();
+                System.out.println("datos carcagos");
+                
+            
+        }catch(ClassNotFoundException | IOException e){
         }
-
+        
+     
     }
 
-    public void guardarDatos(String ruta) {
-        try {
-            FileOutputStream archivo = new FileOutputStream(ruta);
-            ObjectOutputStream datos = new ObjectOutputStream(archivo);
+   public void guardarDatos(String ruta) throws FileNotFoundException, IOException {
+        FileOutputStream archivo = new FileOutputStream(ruta);
+        try (ObjectOutputStream datos = new ObjectOutputStream(archivo)) {
             datos.writeObject(lista);
-        } catch (IOException e) {
         }
     }
 

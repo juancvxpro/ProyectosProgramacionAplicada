@@ -23,6 +23,10 @@ public class Curso {
         this.seccion = seccion;
     }
 
+    public Curso() {
+
+    }
+
     public int getCodigo() {
         return codigo;
     }

@@ -22,6 +22,9 @@ public class controladorAlumno extends AbstractControlador<Alumno> {
         super(ruta);
         this.control = control;
     }
+    
+
+    
 
     @Override
     public boolean validar(Alumno objeto) {

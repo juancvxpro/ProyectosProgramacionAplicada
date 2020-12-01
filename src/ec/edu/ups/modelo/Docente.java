@@ -19,11 +19,15 @@ public class Docente extends Persona {
 
     private Usuario usuario;
 
-    public Docente(String cedula, String nombre, String apellido, int edad, String direccion, String titulo, String tipTitulo, Curso curso) {
+    public Docente(String cedula, String nombre, String apellido, int edad, String direccion) {
+        super(cedula, nombre, apellido, edad, direccion);
+    }
+
+    public Docente(String cedula, String nombre, String apellido, int edad, String direccion, String titulo, String tipTitulo) {
         super(cedula, nombre, apellido, edad, direccion);
         this.titulo = titulo;
         this.tipTitulo = tipTitulo;
-        this.curso = curso;
+
     }
 
     public String getTitulo() {

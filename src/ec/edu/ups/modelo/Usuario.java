@@ -27,7 +27,7 @@ public class Usuario {
     }
 
     public Usuario() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       
     }
 
     public String getRol() {

@@ -18,26 +18,18 @@ public class controladorUsuario extends AbstractControlador<Usuario> {
 
     private Usuario usuario;
 
-    public controladorUsuario(String ruta) {
+    public controladorUsuario( String ruta) {
         super(ruta);
-
+        
     }
+
+    
 
     @Override
     public boolean validar(Usuario objeto) {
 
-        String correo = objeto.getCorreo();
-        String pass = objeto.getPass();
-
-        for (Usuario usu : super.getLista()) {
-            Usuario u = (Usuario) usu;
-            if (u.getCorreo().equals(correo) && u.getPass().equals(pass)) {
-                this.usuario = u;
-                return usuario != null;
-            }
-
-        }
-        return false;
+    
+        return true;
 
     }
 
@@ -64,5 +56,17 @@ public class controladorUsuario extends AbstractControlador<Usuario> {
     public Usuario getUsuario() {
         return usuario;
     }
+ public boolean iniciarSesion(String correo, String pass){
+       
 
+        for (Usuario usu :  super.getLista()) {
+            Usuario u = (Usuario) usu;
+            if (u.getCorreo().equals(correo) && u.getPass().equals(pass)) {
+                this.usuario = u;
+                return true;
+            }
+        }
+        return false;
+ 
+ }
 }

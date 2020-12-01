@@ -18,10 +18,12 @@ public class controladorDocente extends AbstractControlador<Docente> {
 
     private controladorPersona control;
 
-    public controladorDocente(String ruta, controladorPersona control) {
+    public controladorDocente(controladorPersona control, String ruta) {
         super(ruta);
         this.control = control;
     }
+
+   
 
     @Override
     public boolean validar(Docente objeto) {

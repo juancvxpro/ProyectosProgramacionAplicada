@@ -20,6 +20,8 @@ public class controladorCurso extends AbstractControlador<Curso> {
         super(ruta);
     }
 
+    
+
     @Override
     public boolean validar(Curso objeto) {
         return true;

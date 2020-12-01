@@ -5,6 +5,12 @@
  */
 package ec.edu.ups.vista;
 
+import ec.edu.ups.controlador.controladorActividad;
+import ec.edu.ups.controlador.controladorAlumno;
+import ec.edu.ups.controlador.controladorCurso;
+import ec.edu.ups.controlador.controladorDocente;
+import ec.edu.ups.controlador.controladorPersona;
+import ec.edu.ups.controlador.controladorUsuario;
 import javax.swing.JDesktopPane;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -16,8 +22,41 @@ import javax.swing.JMenuItem;
  */
 public class VentanaPrincipal extends javax.swing.JFrame {
 
+    private VentanaIniciarSesion ventanaIniciarSesion;
+    private GestionEstudiantes gestionEstudiantes;
+    private GestionDocentes gestionDocentes;
+    private GestionCursos gestionCursos;
+    private GestionActividades gestionActividades;
+    
+   
+    private controladorPersona controladorPersona;
+    private controladorActividad controladorActividad;
+    private controladorAlumno controladorAlumno;
+    private controladorCurso controladorCurso;
+    private controladorDocente controladorDocente;
+    private controladorUsuario controladorUsuario;
+
     public VentanaPrincipal() {
-        initComponents();
+      initComponents(); 
+      
+        controladorPersona = new controladorPersona("datos/Persona.obj");
+        controladorActividad = new controladorActividad("datos/Actividad.obj");
+        controladorAlumno = new controladorAlumno(controladorPersona,"datos/Alumno.obj");
+        controladorCurso = new controladorCurso("datos/Curso.obj");
+        controladorDocente = new controladorDocente( controladorPersona,"datos/Docente.obj");
+        controladorUsuario = new controladorUsuario("datos/Usuario.obj");
+
+        ventanaIniciarSesion = new VentanaIniciarSesion(this, controladorUsuario);
+        gestionEstudiantes = new GestionEstudiantes(controladorAlumno, controladorCurso);
+        gestionDocentes = new GestionDocentes(controladorDocente, controladorCurso,controladorUsuario);
+        gestionCursos = new GestionCursos(controladorCurso);
+        gestionActividades = new GestionActividades(controladorActividad);
+     
+        EstudiantesMenu.setVisible(false);
+        DocentesMenu.setVisible(false);
+        CursoMenu.setVisible(false);
+        CerrarSesionMenuItem.setVisible(false);
+        
     }
 
     /**
@@ -44,6 +83,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         GestionMenuItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         fileMenu.setMnemonic('f');
         fileMenu.setText("Inicio");
@@ -51,6 +95,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         IniciarSesionMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         IniciarSesionMenuItem.setMnemonic('o');
         IniciarSesionMenuItem.setText("Iniciar  Sesion");
+        IniciarSesionMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                IniciarSesionMenuItemActionPerformed(evt);
+            }
+        });
         fileMenu.add(IniciarSesionMenuItem);
 
         CerrarSesionMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_DOWN_MASK));
@@ -79,9 +128,19 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         GestionEstMenuItem.setMnemonic('t');
         GestionEstMenuItem.setText("Gestion Estudiantes");
+        GestionEstMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GestionEstMenuItemActionPerformed(evt);
+            }
+        });
         EstudiantesMenu.add(GestionEstMenuItem);
 
         ActividadesMenuItem.setText("Gestion Actividades");
+        ActividadesMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ActividadesMenuItemActionPerformed(evt);
+            }
+        });
         EstudiantesMenu.add(ActividadesMenuItem);
 
         menuBar.add(EstudiantesMenu);
@@ -91,6 +150,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         GestionDocMenuItem.setMnemonic('c');
         GestionDocMenuItem.setText("Gestion Docentes");
+        GestionDocMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GestionDocMenuItemActionPerformed(evt);
+            }
+        });
         DocentesMenu.add(GestionDocMenuItem);
 
         menuBar.add(DocentesMenu);
@@ -98,6 +162,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         CursoMenu.setText("Cursos");
 
         GestionMenuItem.setText("Gestion Cursos");
+        GestionMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GestionMenuItemActionPerformed(evt);
+            }
+        });
         CursoMenu.add(GestionMenuItem);
 
         menuBar.add(CursoMenu);
@@ -123,8 +192,47 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_exitMenuItemActionPerformed
 
     private void CerrarSesionMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CerrarSesionMenuItemActionPerformed
-        // TODO add your handling code here:
+        IniciarSesionMenuItem.setVisible(true);
+        EstudiantesMenu.setVisible(false);
+        DocentesMenu.setVisible(false);
+        CursoMenu.setVisible(false);
+        exitMenuItem.setVisible(true);
     }//GEN-LAST:event_CerrarSesionMenuItemActionPerformed
+
+    private void GestionEstMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GestionEstMenuItemActionPerformed
+        desktopPane.add(gestionEstudiantes);
+        gestionEstudiantes.setVisible(true);
+    }//GEN-LAST:event_GestionEstMenuItemActionPerformed
+
+    private void IniciarSesionMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IniciarSesionMenuItemActionPerformed
+             desktopPane.add(ventanaIniciarSesion);
+             ventanaIniciarSesion.setVisible(true);
+    }//GEN-LAST:event_IniciarSesionMenuItemActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+       /* controladorPersona.guardarDatos("datos/Persona.obj");
+        controladorActividad.guardarDatos("datos/Actividad.obj");
+        controladorAlumno.guardarDatos("datos/Alumno.obj");
+        controladorCurso.guardarDatos("datos/Curso.obj");
+        controladorUsuario.guardarDatos("datos/Usuario.obj");
+        controladorDocente.guardarDatos("datos/Docente.obj");*/
+        
+    }//GEN-LAST:event_formWindowClosing
+
+    private void GestionDocMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GestionDocMenuItemActionPerformed
+       desktopPane.add(gestionDocentes);
+       gestionDocentes.setVisible(true);
+    }//GEN-LAST:event_GestionDocMenuItemActionPerformed
+
+    private void ActividadesMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ActividadesMenuItemActionPerformed
+       desktopPane.add(gestionActividades);
+       gestionActividades.setVisible(true);
+    }//GEN-LAST:event_ActividadesMenuItemActionPerformed
+
+    private void GestionMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GestionMenuItemActionPerformed
+        desktopPane.add(gestionCursos);
+        gestionCursos.setVisible(true);
+    }//GEN-LAST:event_GestionMenuItemActionPerformed
 
     public JMenuItem getCerrarSesionMenuItem() {
         return CerrarSesionMenuItem;

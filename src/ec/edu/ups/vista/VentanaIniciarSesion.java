@@ -9,6 +9,9 @@ import ec.edu.ups.controlador.controladorUsuario;
 import ec.edu.ups.modelo.Curso;
 import ec.edu.ups.modelo.Docente;
 import ec.edu.ups.modelo.Usuario;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -19,6 +22,7 @@ public final class VentanaIniciarSesion extends javax.swing.JInternalFrame {
 
     private VentanaPrincipal ventanaPrincipal;
     private controladorUsuario controladorUsuario;
+    private String ruta="datos/Usuario.obj";
 
     /**
      * Creates new form VentanaIniciarSesion
@@ -28,11 +32,15 @@ public final class VentanaIniciarSesion extends javax.swing.JInternalFrame {
      */
     public VentanaIniciarSesion(VentanaPrincipal ventanaPrincipal, controladorUsuario controladorUsuario) {
         initComponents();
-        controladorUsuario.cargarDatos();
+       
         this.ventanaPrincipal = ventanaPrincipal;
         this.controladorUsuario = controladorUsuario;
+        controladorUsuario.cargarDatos();
         
-        generarAdmin();
+       // generarAdmin();
+
+    
+      
     }
 
     /**
@@ -137,15 +145,14 @@ public final class VentanaIniciarSesion extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
-        Usuario us = new Usuario();
+       //
         String pass = "";
         char[] pass1 = txtPass.getPassword();
         for (int i = 0; i < pass1.length; i++) {
             pass = pass + pass1[i];
         }
-        us.setCorreo(txtCorreo.getText());
-        us.setPass(pass);
-        if (controladorUsuario.validar(us)) {
+       
+        if (controladorUsuario.iniciarSesion(txtCorreo.getText().trim(), pass)) {
             ventanaPrincipal.getIniciarSesionMenuItem().setVisible(false);
             ventanaPrincipal.getCerrarSesionMenuItem().setVisible(true);
             if (controladorUsuario.getUsuario().getRol().equals("admin")) {
@@ -162,7 +169,7 @@ public final class VentanaIniciarSesion extends javax.swing.JInternalFrame {
             }
 
             this.dispose();
-             Limpiar();
+            Limpiar();
             JOptionPane.showMessageDialog(this, "Inicio de sesion exitoso");
         } else {
 
@@ -171,13 +178,20 @@ public final class VentanaIniciarSesion extends javax.swing.JInternalFrame {
         }
 
     }//GEN-LAST:event_btnIniciarSesionActionPerformed
-    public void generarAdmin(){
+    public void generarAdmin() {
         Curso curso = new Curso(1, "RECTORADO", "RECTOR GENERAL");
-        Docente docente = new Docente("1303753618", "PABLO", "ABAD", 48, "EL VECINO", "licenciado en Ciencias economicas ", "CUARTO NIVEL", curso);
-        Usuario rector = new Usuario(docente, "pAbad@booking.com", "1234", "admin");
+        Docente docente = new Docente("1303753618", "PABLO", "ABAD", 48, "EL VECINO", "licenciado en Ciencias economicas ", "CUARTO NIVEL");
+        docente.setCurso(curso);
+        Usuario rector = new Usuario(docente, "admin", "admin", "admin");
         controladorUsuario.crear(rector);
         System.out.println("ADMIN GENERADO CORRECTAMENTE");
         
+        try {
+            controladorUsuario.guardarDatos(ruta);
+        } catch (IOException ex) {
+            Logger.getLogger(VentanaIniciarSesion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
     private void formInternalFrameActivated(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameActivated
 
