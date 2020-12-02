@@ -5,11 +5,13 @@
  */
 package ec.edu.ups.modelo;
 
+import java.io.Serializable;
+
 /**
  *
  * @author user
  */
-public class Alumno extends Persona {
+public class Alumno extends Persona  {
 
     private Curso curso;
 

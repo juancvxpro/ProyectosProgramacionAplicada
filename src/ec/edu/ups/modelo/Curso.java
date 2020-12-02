@@ -18,7 +18,6 @@ public class Curso implements Serializable {
     private String nombre;
 
     private String seccion;
-
     public Curso(int codigo, String nombre, String seccion) {
         this.codigo = codigo;
         this.nombre = nombre;
