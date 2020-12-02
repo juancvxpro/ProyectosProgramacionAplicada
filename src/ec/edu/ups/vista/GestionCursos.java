@@ -21,13 +21,13 @@ import javax.swing.table.DefaultTableModel;
 public class GestionCursos extends javax.swing.JInternalFrame {
 
     private controladorCurso controladorCurso;
-    public static String ruta ="datos/Curso.obj";
+    public static String ruta = "datos/Curso.obj";
+
     public GestionCursos(controladorCurso controladorCurso) {
-        
+
         initComponents();
-       
+
         this.controladorCurso = controladorCurso;
-        
 
     }
 
@@ -295,7 +295,7 @@ public class GestionCursos extends javax.swing.JInternalFrame {
     }
     private void btnListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarActionPerformed
         if (controladorCurso.cursos() != null) {
-            
+
             cargarCursosTbl();
 
         }
@@ -312,11 +312,13 @@ public class GestionCursos extends javax.swing.JInternalFrame {
 
             if (controladorCurso.eliminar(doc)) {
                 JOptionPane.showMessageDialog(this, "eliminado exitosamente");
-                 try {
-                controladorCurso.guardarDatos(ruta);
-            } catch (IOException ex) {
-                Logger.getLogger(GestionCursos.class.getName()).log(Level.SEVERE, null, ex);
-            }
+                try {
+                    controladorCurso.guardarDatos(ruta);
+
+                } catch (IOException ex) {
+                    Logger.getLogger(GestionCursos.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                limpiar();
                 cargarCursosTbl();
             } else if (d == JOptionPane.NO_OPTION) {
                 cargarCursosTbl();
@@ -332,17 +334,19 @@ public class GestionCursos extends javax.swing.JInternalFrame {
         if (controladorCurso.actualizar(curso)) {
             JOptionPane.showMessageDialog(this, "actualizado con exito");
             if (controladorCurso.crear(curso)) {
-            JOptionPane.showMessageDialog(this, "Registrado con exito");
-            try {
-                controladorCurso.guardarDatos(ruta);
-            } catch (IOException ex) {
-                Logger.getLogger(GestionCursos.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            limpiar();
+                JOptionPane.showMessageDialog(this, "Registrado con exito");
+                try {
+                    controladorCurso.guardarDatos(ruta);
+                } catch (IOException ex) {
+                    Logger.getLogger(GestionCursos.class.getName()).log(Level.SEVERE, null, ex);
+                }
 
-        } else {
-            JOptionPane.showMessageDialog(this, "No se pudo actualizar");
-        }
+                cargarCursosTbl();
+                limpiar();
+
+            } else {
+                JOptionPane.showMessageDialog(this, "No se pudo actualizar");
+            }
         }
     }//GEN-LAST:event_btnActualizarActionPerformed
 
@@ -358,6 +362,7 @@ public class GestionCursos extends javax.swing.JInternalFrame {
                 Logger.getLogger(GestionCursos.class.getName()).log(Level.SEVERE, null, ex);
             }
             limpiar();
+            cargarCursosTbl();
 
         } else {
             JOptionPane.showMessageDialog(this, "No se pudo registrar");

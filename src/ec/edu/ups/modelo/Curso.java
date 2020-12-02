@@ -5,11 +5,13 @@
  */
 package ec.edu.ups.modelo;
 
+import java.io.Serializable;
+
 /**
  *
  * @author user
  */
-public class Curso {
+public class Curso implements Serializable {
 
     private int codigo;
 

@@ -21,12 +21,14 @@ import javax.swing.table.DefaultTableModel;
  * @author user
  */
 public class GestionEstudiantes extends javax.swing.JInternalFrame {
-    public static String ruta="datos/Alumno.obj";
+
+    public static String ruta = "datos/Alumno.obj";
     private controladorAlumno controladorAlumno;
     private controladorCurso controladorCurso;
+
     public GestionEstudiantes(controladorAlumno controladorAlumno, controladorCurso controladorCurso) {
         initComponents();
-        
+
         this.controladorAlumno = controladorAlumno;
         this.controladorCurso = controladorCurso;
     }
@@ -339,8 +341,9 @@ public class GestionEstudiantes extends javax.swing.JInternalFrame {
         if (controladorAlumno.crear(estudiante)) {
             try {
                 JOptionPane.showMessageDialog(this, "Registrado con exito");
-                
-                controladorAlumno.guardarDatos(title);
+
+                controladorAlumno.guardarDatos(ruta);
+                cargarEstudiantesTbl();
                 limpiar();
             } catch (IOException ex) {
                 Logger.getLogger(GestionEstudiantes.class.getName()).log(Level.SEVERE, null, ex);
@@ -363,19 +366,15 @@ public class GestionEstudiantes extends javax.swing.JInternalFrame {
                 Integer.parseInt(txtGEdad.getText().trim()), txtGDireccion.getText().trim(), curso, txtAula.getText().trim());
         if (controladorAlumno.actualizar(estudiante)) {
             JOptionPane.showMessageDialog(this, "actualizado exitosamente");
-             if (controladorAlumno.crear(estudiante)) {
-            JOptionPane.showMessageDialog(this, "Registrado con exito");
-            
+
             try {
                 controladorAlumno.guardarDatos(ruta);
             } catch (IOException ex) {
                 Logger.getLogger(GestionEstudiantes.class.getName()).log(Level.SEVERE, null, ex);
             }
+            cargarEstudiantesTbl();
             limpiar();
 
-        } else {
-            JOptionPane.showMessageDialog(this, "No se pudo registrar");
-        }
             limpiar();
             cargarEstudiantesTbl();
         } else {
@@ -395,11 +394,11 @@ public class GestionEstudiantes extends javax.swing.JInternalFrame {
 
             if (controladorAlumno.eliminar(doc)) {
                 JOptionPane.showMessageDialog(this, "eliminado exitosamente");
-                 try {
-                controladorAlumno.guardarDatos(ruta);
-            } catch (IOException ex) {
-                Logger.getLogger(GestionEstudiantes.class.getName()).log(Level.SEVERE, null, ex);
-            }
+                try {
+                    controladorAlumno.guardarDatos(ruta);
+                } catch (IOException ex) {
+                    Logger.getLogger(GestionEstudiantes.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 cargarEstudiantesTbl();
             } else if (d == JOptionPane.NO_OPTION) {
                 cargarEstudiantesTbl();
@@ -411,7 +410,7 @@ public class GestionEstudiantes extends javax.swing.JInternalFrame {
 
     private void btnListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarActionPerformed
         if (controladorAlumno.alumnos() != null) {
-           
+
             cargarEstudiantesTbl();
 
         }

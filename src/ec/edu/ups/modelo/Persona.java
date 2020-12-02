@@ -1,12 +1,13 @@
 package ec.edu.ups.modelo;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
  *
  * @author user
  */
-public class Persona {
+public class Persona implements Serializable {
 
     private String cedula;
 

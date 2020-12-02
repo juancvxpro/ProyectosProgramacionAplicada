@@ -23,18 +23,23 @@ import javax.swing.table.DefaultTableModel;
  * @author user
  */
 public class GestionDocentes extends javax.swing.JInternalFrame {
-
+    
     private controladorDocente controladorDocente;
     private controladorCurso controladorCurso;
     private controladorUsuario controladorUsuario;
-    public static String ruta="datos/Docente.obj";
-
+    public static String ruta = "datos/Docente.obj";
+    
     public GestionDocentes(controladorDocente controladorDocente, controladorCurso controladorCurso, controladorUsuario controladorUsuario) {
         initComponents();
-     
+        
         this.controladorDocente = controladorDocente;
         this.controladorCurso = controladorCurso;
-        this.controladorUsuario=controladorUsuario;
+        this.controladorUsuario = controladorUsuario;
+        try {
+            controladorDocente.cargarDatos();
+        } catch (ClassNotFoundException | IOException ex) {
+            Logger.getLogger(GestionDocentes.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
     }
 
@@ -345,11 +350,11 @@ public class GestionDocentes extends javax.swing.JInternalFrame {
         } else {
             System.out.println("LISTA VACIA");
         }
-
+        
     }
-
+    
     public void limpiar() {
-
+        
         txtGcedula.setText("");
         txtGnombre.setText("");
         txtGapellido.setText("");
@@ -357,62 +362,65 @@ public class GestionDocentes extends javax.swing.JInternalFrame {
         txtGDireccion.setText("");
         txtTitulo.setText("");
         txtTipoTitulo.setText("");
-
+        
     }
     private void txtGcedulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtGcedulaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtGcedulaActionPerformed
-
+    
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
-
+    
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-
+        
         Docente docente = new Docente(txtGcedula.getText().trim(), txtGnombre.getText().trim(),
                 txtGapellido.getText().trim(), Integer.parseInt(txtGEdad.getText().trim()), txtGDireccion.getText().trim(), txtTitulo.getText().trim(), txtTipoTitulo.getText().trim());
-
+        
         Curso comparar = new Curso();
         comparar.setCodigo(Integer.parseInt(txtCodigoCurso.getText().trim()));
-
+        
         Optional<Curso> c = controladorCurso.buscar(comparar);
         Curso curso = c.get();
         docente.setCurso(curso);
-        Usuario u = new Usuario(docente,"editor",txtCorreo.getText().trim(),txtPass.getText().trim());
+        Usuario u = new Usuario(docente, "editor", txtCorreo.getText().trim(), txtPass.getText().trim());
         
-       
-        if (controladorDocente.crear(docente)&&controladorUsuario.crear(u)) {
+        if (controladorDocente.crear(docente) && controladorUsuario.crear(u)) {
+            cargarDocentesTbl();
             JOptionPane.showMessageDialog(this, "Registrado con exito");
             try {
                 controladorDocente.guardarDatos(ruta);
+                controladorUsuario.guardarDatos("datos/Usuario.obj");
             } catch (IOException ex) {
                 Logger.getLogger(GestionDocentes.class.getName()).log(Level.SEVERE, null, ex);
             }
             cargarDocentesTbl();
             limpiar();
-
+            
         } else {
             JOptionPane.showMessageDialog(this, "No se pudo registrar");
         }
-
+        
     }//GEN-LAST:event_btnGuardarActionPerformed
-
+    
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-
+        
         Docente docente = new Docente(txtGcedula.getText().trim(), txtGnombre.getText().trim(),
                 txtGapellido.getText().trim(), Integer.parseInt(txtGEdad.getText().trim()), txtGDireccion.getText().trim(), txtTitulo.getText().trim(), txtTipoTitulo.getText().trim());
-
+        
         Curso comparar = new Curso();
         comparar.setCodigo(Integer.parseInt(txtCodigoCurso.getText().trim()));
-
+        
         Optional<Curso> c = controladorCurso.buscar(comparar);
         Curso curso = c.get();
         docente.setCurso(curso);
-
-        if (controladorDocente.actualizar(docente)) {
+        Usuario u = new Usuario(docente, "editor", txtCorreo.getText().trim(), txtPass.getText().trim());
+        
+        if (controladorDocente.actualizar(docente) && controladorUsuario.actualizar(u)) {
             JOptionPane.showMessageDialog(this, "actualizado exitosamente");
-                        try {
+            try {
                 controladorDocente.guardarDatos(ruta);
+                controladorUsuario.guardarDatos("datos/Usuario.obj");
             } catch (IOException ex) {
                 Logger.getLogger(GestionDocentes.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -421,9 +429,9 @@ public class GestionDocentes extends javax.swing.JInternalFrame {
         } else {
             JOptionPane.showMessageDialog(this, "No se pudo actualizar  :ERROR");
         }
-
+        
     }//GEN-LAST:event_btnActualizarActionPerformed
-
+    
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         int d = JOptionPane.showConfirmDialog(this, "Esta seguro de eliminar el docente con cedula" + txtGcedula.getText().trim());
         if (d == JOptionPane.YES_OPTION) {
@@ -432,34 +440,36 @@ public class GestionDocentes extends javax.swing.JInternalFrame {
             Optional<Docente> p = controladorDocente.buscar(comparar);
             Docente doc = p.get();
             System.out.println("" + doc);
-
-            if (controladorDocente.eliminar(doc)) {
-                            try {
-                controladorDocente.guardarDatos(ruta);
-            } catch (IOException ex) {
-                Logger.getLogger(GestionDocentes.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            Usuario compa = controladorUsuario.buscarU(doc);
+            
+            if (controladorDocente.eliminar(doc) && controladorUsuario.eliminar(compa)) {
+                try {
+                    controladorDocente.guardarDatos(ruta);
+                    controladorUsuario.guardarDatos("datos/Usuario.obj");
+                } catch (IOException ex) {
+                    Logger.getLogger(GestionDocentes.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 JOptionPane.showMessageDialog(this, "eliminado exitosamente");
                 cargarDocentesTbl();
             } else if (d == JOptionPane.NO_OPTION) {
                 cargarDocentesTbl();
             }
-
+            
         }
-
+        
     }//GEN-LAST:event_btnEliminarActionPerformed
-
+    
     private void btnListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarActionPerformed
         if (controladorDocente.docentes() != null) {
             
             cargarDocentesTbl();
-
+            
         }
     }//GEN-LAST:event_btnListarActionPerformed
-
+    
     private void tblDocentesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDocentesMouseClicked
         int index = tblDocentes.getSelectedRow();
-
+        
         String cedula = "" + tblDocentes.getValueAt(index, 0);
         String nombre = "" + tblDocentes.getValueAt(index, 1);
         String apellido = "" + tblDocentes.getValueAt(index, 2);
@@ -468,7 +478,9 @@ public class GestionDocentes extends javax.swing.JInternalFrame {
         String Titulo = "" + tblDocentes.getValueAt(index, 5);
         String tipoTitulo = "" + tblDocentes.getValueAt(index, 6);
         int codigoCurso = Integer.parseInt("" + tblDocentes.getValueAt(index, 7));
-
+        String correo = "" + tblDocentes.getValueAt(index, 8);
+        String pass = "" + tblDocentes.getValueAt(index, 9);
+        
         txtGcedula.setText(cedula);
         txtGnombre.setText(nombre);
         txtGapellido.setText(apellido);
@@ -477,6 +489,8 @@ public class GestionDocentes extends javax.swing.JInternalFrame {
         txtTitulo.setText(Titulo);
         txtTipoTitulo.setText(tipoTitulo);
         txtCodigoCurso.setText("" + codigoCurso);
+        txtCorreo.setText(correo);
+        txtPass.setText(pass);
     }//GEN-LAST:event_tblDocentesMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -5,12 +5,13 @@
  */
 package ec.edu.ups.controlador;
 
+import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -20,40 +21,40 @@ import java.util.Optional;
  * @author user
  * @param <E>
  */
-public abstract class AbstractControlador<E>  {
+public abstract class AbstractControlador<E> {
 
     private String ruta;
     private List<E> lista;
 
-  
-
     public AbstractControlador(String ruta) {
         lista = new ArrayList();
-       this.ruta=ruta;
-       cargarDatos();
-      
+        this.ruta = ruta;
+        //cargarDatos();
 
     }
 
-    public  void cargarDatos(){
-        try{
-            FileInputStream archivo = new FileInputStream(ruta);
-            ObjectInputStream datos = new ObjectInputStream(archivo);
-                lista= (List<E>) datos.readObject();
-                System.out.println("datos carcagos");
-                
-            
-        }catch(ClassNotFoundException | IOException e){
+    public void cargarDatos() throws ClassNotFoundException, IOException {
+        ObjectInputStream datos = null;
+        try {
+            File f = new File(ruta);
+            FileInputStream a = new FileInputStream(f);
+            datos = new ObjectInputStream(a);
+
+            lista = (List<E>) datos.readObject();
+
+        } catch (IOException e) {
+
         }
-        
-     
+
     }
 
-   public void guardarDatos(String ruta) throws FileNotFoundException, IOException {
-        FileOutputStream archivo = new FileOutputStream(ruta);
-        try (ObjectOutputStream datos = new ObjectOutputStream(archivo)) {
-            datos.writeObject(lista);
-        }
+    public void guardarDatos(String ruta) throws IOException {
+        ObjectOutputStream datos = null;
+        File f = new File(ruta);
+        FileOutputStream archivo = new FileOutputStream(f);
+        datos = new ObjectOutputStream(archivo);
+        datos.writeObject(lista);
+
     }
 
     public boolean crear(E objeto) {

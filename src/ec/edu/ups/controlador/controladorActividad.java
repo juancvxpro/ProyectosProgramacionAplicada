@@ -26,8 +26,6 @@ public class controladorActividad extends AbstractControlador<Actividad> {
     public controladorActividad(String ruta) {
         super(ruta);
     }
-     
-    
 
     @Override
     public boolean validar(Actividad objeto) {
@@ -51,22 +49,23 @@ public class controladorActividad extends AbstractControlador<Actividad> {
         }
 
     }
-    public void ingresarRegex(String regex){
-     patron = Pattern.compile(regex);
+
+    public void ingresarRegex(String regex) {
+        patron = Pattern.compile(regex);
     }
-    
-   
-    public Set<String> obtenerUrl(String texto){
-        
-        Set<String> resultado= new HashSet();
-        corpus= patron.matcher(texto);
-        
-        while (corpus.find()){
-        resultado.add(corpus.group(0));
+
+    public Set<String> obtenerUrl(String texto) {
+
+        Set<String> resultado = new HashSet();
+        corpus = patron.matcher(texto);
+
+        while (corpus.find()) {
+            resultado.add(corpus.group(0));
         }
         return resultado;
-    
+
     }
+
     public List<Actividad> actividades() {
 
         List<Actividad> lista = new ArrayList();

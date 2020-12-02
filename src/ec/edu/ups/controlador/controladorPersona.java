@@ -17,8 +17,6 @@ public class controladorPersona extends AbstractControlador<Persona> {
         super(ruta);
     }
 
-   
-
     @Override
     public boolean validar(Persona objeto) {
         int suma = 0;

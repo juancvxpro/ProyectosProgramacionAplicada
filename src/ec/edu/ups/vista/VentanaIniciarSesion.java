@@ -22,7 +22,7 @@ public final class VentanaIniciarSesion extends javax.swing.JInternalFrame {
 
     private VentanaPrincipal ventanaPrincipal;
     private controladorUsuario controladorUsuario;
-    private String ruta="datos/Usuario.obj";
+    private String ruta = "datos/Usuario.obj";
 
     /**
      * Creates new form VentanaIniciarSesion
@@ -30,17 +30,18 @@ public final class VentanaIniciarSesion extends javax.swing.JInternalFrame {
      * @param ventanaPrincipal
      * @param controladorUsuario
      */
-    public VentanaIniciarSesion(VentanaPrincipal ventanaPrincipal, controladorUsuario controladorUsuario) {
+    public VentanaIniciarSesion(VentanaPrincipal ventanaPrincipal, controladorUsuario controladorUsuario) throws IOException {
         initComponents();
-       
+
         this.ventanaPrincipal = ventanaPrincipal;
         this.controladorUsuario = controladorUsuario;
-        controladorUsuario.cargarDatos();
-        
-       // generarAdmin();
+        // generarAdmin();
+        try {
+            controladorUsuario.cargarDatos();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(VentanaIniciarSesion.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
-    
-      
     }
 
     /**
@@ -145,13 +146,13 @@ public final class VentanaIniciarSesion extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
-       //
+        //
         String pass = "";
         char[] pass1 = txtPass.getPassword();
         for (int i = 0; i < pass1.length; i++) {
             pass = pass + pass1[i];
         }
-       
+
         if (controladorUsuario.iniciarSesion(txtCorreo.getText().trim(), pass)) {
             ventanaPrincipal.getIniciarSesionMenuItem().setVisible(false);
             ventanaPrincipal.getCerrarSesionMenuItem().setVisible(true);
@@ -185,7 +186,7 @@ public final class VentanaIniciarSesion extends javax.swing.JInternalFrame {
         Usuario rector = new Usuario(docente, "admin", "admin", "admin");
         controladorUsuario.crear(rector);
         System.out.println("ADMIN GENERADO CORRECTAMENTE");
-        
+
         try {
             controladorUsuario.guardarDatos(ruta);
         } catch (IOException ex) {

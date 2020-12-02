@@ -20,20 +20,22 @@ import java.util.Set;
 public class GestionActividades extends javax.swing.JInternalFrame {
 
     private controladorActividad controladorActividad;
-    private StringBuilder sb ;
+
     private String textoBusqueda;
-    private String ruta="datos/Actividad.obj";
+    private String ruta = "datos/Actividad.obj";
+
     public GestionActividades(controladorActividad controladorActividad) {
         initComponents();
-        this.controladorActividad=controladorActividad ;
-        sb= new StringBuilder();
-        textoBusqueda=txtActividad.getText().trim();
-        
-        
+        this.controladorActividad = controladorActividad;
+
+        textoBusqueda = txtActividad.getText().trim();
+
     }
-   public void ingresarRegex(){
-   controladorActividad.ingresarRegex("<a\\shref=\"(http(s)?\\:\\/\\/)(www)?(.[^\"\\s])+");
-   }
+
+    public void ingresarRegex() {
+        controladorActividad.ingresarRegex("<a\\shref=\"(http(s)?\\:\\/\\/)(www)?(.[^\"\\s])+");
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -311,20 +313,18 @@ public class GestionActividades extends javax.swing.JInternalFrame {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
 
-        
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
 
-     
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-    
+
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarActionPerformed
-      
+
     }//GEN-LAST:event_btnListarActionPerformed
 
     private void txtTituloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTituloActionPerformed
@@ -338,27 +338,27 @@ public class GestionActividades extends javax.swing.JInternalFrame {
         String nombre = "" + tblActividades.getValueAt(index, 1);
         String titulo = "" + tblActividades.getValueAt(index, 2);
         String descripcion = "" + tblActividades.getValueAt(index, 3);
-    
 
-      
     }//GEN-LAST:event_tblActividadesMouseClicked
 
     private void btnIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarActionPerformed
-       try {
-           URL urlObject = new URL ("https://play.google.com/store/search?q="+textoBusqueda.replaceAll("\\s", "\\+"));
-           URLConnection urlC= urlObject.openConnection();
-           urlC.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.95 Safari/537.11");
-           BufferedReader bufferedReader = new BufferedReader(new InputStreamReader ( urlC.getInputStream() ,"UTF-8"));
-           String entrada;
-           while((entrada=bufferedReader.readLine()) !=null){
-            sb.append(entrada);
-           }
-       }catch(IOException e){
-       
-       }
+        ingresarRegex();
+        StringBuilder sb = new StringBuilder();
+        try {
+            URL urlObject = new URL("https://play.google.com/store/search?q=" + textoBusqueda.replaceAll("\\s", "\\+"));
+            URLConnection urlC = urlObject.openConnection();
+            urlC.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.95 Safari/537.11");
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlC.getInputStream(), "UTF-8"));
+            String entrada;
+            while ((entrada = bufferedReader.readLine()) != null) {
+                sb.append(entrada);
+            }
+        } catch (IOException e) {
+
+        }
         System.out.println(sb.toString());
         Set<String> res = controladorActividad.obtenerUrl(sb.toString());
-        res.stream().forEach(s ->  System.out.println(s.replaceAll("<a\\shref=\"", "")));
+        res.stream().forEach(s -> System.out.println(s.replaceAll("<a\\shref=\"", "")));
     }//GEN-LAST:event_btnIniciarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -5,11 +5,13 @@
  */
 package ec.edu.ups.modelo;
 
+import java.io.Serializable;
+
 /**
  *
  * @author user
  */
-public class Usuario {
+public class Usuario implements Serializable {
 
     private Docente docente;
 
@@ -27,7 +29,7 @@ public class Usuario {
     }
 
     public Usuario() {
-       
+
     }
 
     public String getRol() {

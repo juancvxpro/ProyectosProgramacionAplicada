@@ -23,8 +23,6 @@ public class controladorDocente extends AbstractControlador<Docente> {
         this.control = control;
     }
 
-   
-
     @Override
     public boolean validar(Docente objeto) {
         return control.validar(objeto);
