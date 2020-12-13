@@ -6,8 +6,15 @@
 package ec.edu.ups.vista;
 
 import ec.edu.ups.controlador.controladorClienteFijo;
+import ec.edu.ups.controlador.controladorEgreso;
 import ec.edu.ups.controlador.controladorEspacios;
+import ec.edu.ups.controlador.controladorFacturaClienteFijo;
+import ec.edu.ups.controlador.controladorFacturaClienteM;
+import ec.edu.ups.controlador.controladorHistorialClienteM;
+import ec.edu.ups.controlador.controladorHistorialClientesF;
+import ec.edu.ups.controlador.controladorIngreso;
 import ec.edu.ups.controlador.controladorTarifa;
+import ec.edu.ups.controlador.controladorTicketCliente;
 import ec.edu.ups.controlador.controladorUsuario;
 
 import java.io.IOException;
@@ -22,34 +29,50 @@ import javax.swing.JMenuItem;
  * @author user
  */
 public class VentanaPrincipal extends javax.swing.JFrame {
-    
+
     private VentanaIniciarSesion ventanaIniciarSesion;
     private GestionUsuarios gestionUsuarios;
     private Tarifas tarifas;
     private GestionClientesFijos gestionClienteFijo;
-    
+    private Tickets tickets;
+
     private controladorUsuario controladorUsuario;
     private controladorTarifa controladorTarifa;
     private controladorClienteFijo controladorClienteFijo;
     private controladorEspacios controladorEspacios;
-    
+    private controladorTicketCliente controladorTicketCliente;
+    private controladorHistorialClienteM controladorHistorialClienteM;
+    private controladorHistorialClientesF controladorHistorialClienteF;
+    private controladorFacturaClienteFijo controladorFacturaClienteFijo;
+    private controladorFacturaClienteM controladorFacturaClienteM;
+    private controladorIngreso controladorIngresos;
+    private controladorEgreso controladorEgreso;
+
     public VentanaPrincipal() {
         initComponents();
-        controladorEspacios= new controladorEspacios();
-        controladorClienteFijo= new controladorClienteFijo("datos/ClienteFijo.obj");
+
+        controladorEspacios = new controladorEspacios();
+        controladorIngresos= new controladorIngreso("datos/Ingresos.obj");
+        controladorEgreso= new controladorEgreso("datos/Egresos.obj");
+        controladorFacturaClienteM = new controladorFacturaClienteM("datos/FacturaClienteM");
+        controladorFacturaClienteFijo = new controladorFacturaClienteFijo("datos/FacturaClienteFijo.obj");
+        controladorHistorialClienteF = new controladorHistorialClientesF ("datos/HistorialClienteF.obj");
+        controladorHistorialClienteM = new controladorHistorialClienteM ("datos/HistorialClienteM.obj");
+        controladorClienteFijo = new controladorClienteFijo("datos/ClienteFijo.obj");
         controladorUsuario = new controladorUsuario("datos/Usuario.obj");
         controladorTarifa = new controladorTarifa("datos/Tarifa.obj");
+        controladorTicketCliente = new controladorTicketCliente("datos/Ticket.obj", controladorTarifa);
         ventanaIniciarSesion = new VentanaIniciarSesion(this, controladorUsuario);
-        gestionUsuarios = new GestionUsuarios(controladorUsuario);        
+        gestionUsuarios = new GestionUsuarios(controladorUsuario);
         tarifas = new Tarifas(controladorTarifa);
-        gestionClienteFijo = new GestionClientesFijos(controladorClienteFijo,controladorTarifa,controladorEspacios);
-        
+        gestionClienteFijo = new GestionClientesFijos(controladorClienteFijo, controladorTarifa, controladorEspacios);
+        tickets = new Tickets(controladorTicketCliente, controladorEspacios, controladorTarifa);
         menuFacturas.setVisible(false);
         RegistrosMonetariosMenuItem.setVisible(false);
         VerTablasMenu.setVisible(false);
         HistorialMenu.setVisible(false);
         CerrarSesionMenuItem.setVisible(false);
-        
+
     }
 
     /**
@@ -240,15 +263,16 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void exitMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitMenuItemActionPerformed
         System.exit(0);
     }//GEN-LAST:event_exitMenuItemActionPerformed
-    
+
     private void TicketsMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TicketsMenuItemActionPerformed
-        // TODO add your handling code here:
+        desktopPane.add(tickets);
+        tickets.setVisible(true);
     }//GEN-LAST:event_TicketsMenuItemActionPerformed
-    
+
     private void FacturaClienteFijoMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FacturaClienteFijoMenuItemActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_FacturaClienteFijoMenuItemActionPerformed
-    
+
     private void CerrarSesionMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CerrarSesionMenuItemActionPerformed
         menuFacturas.setVisible(false);
         RegistrosMonetariosMenuItem.setVisible(false);
@@ -257,27 +281,27 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         CerrarSesionMenuItem.setVisible(false);
         IniciarSesionMenuItem.setVisible(true);
         exitMenuItem.setVisible(true);
-        
+
     }//GEN-LAST:event_CerrarSesionMenuItemActionPerformed
-    
+
     private void MultasMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MultasMenuItemActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_MultasMenuItemActionPerformed
-        
+
     private void ClientesMhistorialMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ClientesMhistorialMenuItemActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ClientesMhistorialMenuItemActionPerformed
-    
+
     private void IniciarSesionMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IniciarSesionMenuItemActionPerformed
         desktopPane.add(ventanaIniciarSesion);
         ventanaIniciarSesion.setVisible(true);
     }//GEN-LAST:event_IniciarSesionMenuItemActionPerformed
-    
+
     private void UsuariosMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsuariosMenuItemActionPerformed
         desktopPane.add(gestionUsuarios);
         gestionUsuarios.setVisible(true);
     }//GEN-LAST:event_UsuariosMenuItemActionPerformed
-    
+
     private void TarifasMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TarifasMenuItemActionPerformed
         desktopPane.add(tarifas);
         tarifas.setVisible(true);
@@ -322,81 +346,79 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         });
     }
-    
+
     public JMenu getArchivosMenu() {
         return ArchivosMenu;
     }
-    
+
     public JMenuItem getCerrarSesionMenuItem() {
         return CerrarSesionMenuItem;
     }
-    
+
     public JMenuItem getClientesFijosHistorialMenuItem() {
         return ClientesFijosHistorialMenuItem;
     }
-    
+
     public JMenuItem getClientesFijosMenuItem() {
         return ClientesFijosMenuItem;
     }
-    
+
     public JMenu getClientesMenu() {
         return ClientesMenu;
     }
-    
+
     public JMenuItem getClientesMhistorialMenuItem() {
         return ClientesMhistorialMenuItem;
     }
-    
-  
-    
+
     public JMenuItem getFacturaClienteFijoMenuItem() {
         return FacturaClienteFijoMenuItem;
     }
-    
+
     public JMenu getHistorialMenu() {
         return HistorialMenu;
     }
-    
+
     public JMenuItem getIniciarSesionMenuItem() {
         return IniciarSesionMenuItem;
     }
-    
+
     public JMenuItem getMultasMenuItem() {
         return MultasMenuItem;
     }
-    
+
     public JMenuItem getRegistrosMonetariosMenuItem() {
         return RegistrosMonetariosMenuItem;
     }
-    
+
     public JMenuItem getTarifasMenuItem() {
         return TarifasMenuItem;
     }
-    
+
     public JMenuItem getTicketsMenuItem() {
         return TicketsMenuItem;
     }
-    
+
     public JMenuItem getUsuariosMenuItem() {
         return UsuariosMenuItem;
     }
-    
+
     public JMenu getVerTablasMenu() {
         return VerTablasMenu;
     }
-    
+
     public JDesktopPane getDesktopPane() {
         return desktopPane;
     }
-    
+
     public JMenuItem getExitMenuItem() {
         return exitMenuItem;
     }
-    
+
     public JMenuItem getFacturaClienteMomentaneoMenuItem() {
         return facturaClienteMomentaneoMenuItem;
     }
-    
+
     public JMenu getMenuFacturas() {
         return menuFacturas;
     }

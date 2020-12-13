@@ -25,6 +25,10 @@ public class ClienteFijo extends Persona {
 
     private int espacioParqueo;
 
+    private double multa;
+    
+    private boolean estado;
+
     public ClienteFijo(int id, String tipoVehivulo, String tarifa, Double abono, Calendar fechaExpiracion, int espacioParqueo, String cedula, String nombre, String apellido, String direccion, String telefono) {
         super(cedula, nombre, apellido, direccion, telefono);
         this.id = id;
@@ -33,6 +37,23 @@ public class ClienteFijo extends Persona {
         this.abono = abono;
         this.fechaExpiracion = fechaExpiracion;
         this.espacioParqueo = espacioParqueo;
+    }
+
+    public boolean isEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
+    }
+
+    
+    public double getMulta() {
+        return multa;
+    }
+
+    public void setMulta(double multa) {
+        this.multa = multa;
     }
 
     public int getEspacioParqueo() {

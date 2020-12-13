@@ -5,13 +5,14 @@
  */
 package ec.edu.ups.modelo;
 
+import java.io.Serializable;
 import java.util.Calendar;
 
 /**
  *
  * @author user
  */
-public class TicketClienteMomentaneo {
+public class TicketClienteMomentaneo implements Serializable {
 
     private int id;
 
@@ -25,16 +26,18 @@ public class TicketClienteMomentaneo {
 
     private int espacioParqueo;
 
-    private Double minutos;
+    private int minutos;
 
     private Double tarifa;
 
     private boolean estado;
 
+    private double multa;
+
     public TicketClienteMomentaneo() {
     }
 
-    public TicketClienteMomentaneo(int id, String nombre, String tipoVehiculo, Calendar fechaHoraIngreso, Calendar fechaHoraSalida, int espacioParqueo, Double minutos, Double tarifa, boolean estado) {
+    public TicketClienteMomentaneo(int id, String nombre, String tipoVehiculo, Calendar fechaHoraIngreso, Calendar fechaHoraSalida, int espacioParqueo, int minutos, Double tarifa, boolean estado) {
         this.id = id;
         this.nombre = nombre;
         this.tipoVehiculo = tipoVehiculo;
@@ -44,6 +47,14 @@ public class TicketClienteMomentaneo {
         this.minutos = minutos;
         this.tarifa = tarifa;
         this.estado = estado;
+    }
+
+    public double getMulta() {
+        return multa;
+    }
+
+    public void setMulta(double multa) {
+        this.multa = multa;
     }
 
     public String getNombre() {
@@ -86,11 +97,11 @@ public class TicketClienteMomentaneo {
         this.fechaHoraSalida = fechaHoraSalida;
     }
 
-    public Double getMinutos() {
+    public int getMinutos() {
         return minutos;
     }
 
-    public void setMinutos(Double minutos) {
+    public void setMinutos(int minutos) {
         this.minutos = minutos;
     }
 
@@ -141,6 +152,22 @@ public class TicketClienteMomentaneo {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("TicketClienteMomentaneo{id=").append(id);
+        sb.append(", nombre=").append(nombre);
+        sb.append(", tipoVehiculo=").append(tipoVehiculo);
+        sb.append(", fechaHoraIngreso=").append(fechaHoraIngreso);
+        sb.append(", fechaHoraSalida=").append(fechaHoraSalida);
+        sb.append(", espacioParqueo=").append(espacioParqueo);
+        sb.append(", minutos=").append(minutos);
+        sb.append(", tarifa=").append(tarifa);
+        sb.append(", estado=").append(estado);
+        sb.append('}');
+        return sb.toString();
     }
 
 }

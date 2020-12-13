@@ -397,17 +397,17 @@ public final class GestionClientesFijos extends javax.swing.JInternalFrame {
 
         tblClientesFijos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "Cedula", "Nombre", "Apellido", "Direccion", "Telefono", "Tipo Vehiculo", "Tipo Tarifa", "Abono ($)", "Fecha Expiracion Pago"
+                "ID", "Cedula", "Nombre", "Apellido", "Direccion", "Telefono", "Tipo Vehiculo", "Tipo Tarifa", "Abono ($)", "Fecha Expiracion Pago", "Multa"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Object.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Object.class, java.lang.Double.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -588,6 +588,9 @@ public final class GestionClientesFijos extends javax.swing.JInternalFrame {
         }
     
      while (saldo>=0){
+         if(saldo<valorTarifa){
+    valorTarifa=valorTarifa-saldo;
+    }
      saldo=saldo-valorTarifa;
      
      }
@@ -656,7 +659,7 @@ public final class GestionClientesFijos extends javax.swing.JInternalFrame {
             for (ClienteFijo cf : controladorClienteFijo.clientesFijos()) {
                 Calendar f =cf.getFechaExpiracion();
                 fecha=f.get(Calendar.DAY_OF_MONTH)+"/"+f.get(Calendar.MONTH)+"/"+f.get(Calendar.YEAR);
-                Object[] rowData = {cf.getId(),cf.getCedula(),cf.getNombre(),cf.getApellido(),cf.getDireccion(),cf.getTlf(),cf.getTipoVehivulo(),cf.getTipoTarifa(),cf.getAbono(),fecha};
+                Object[] rowData = {cf.getId(),cf.getCedula(),cf.getNombre(),cf.getApellido(),cf.getDireccion(),cf.getTlf(),cf.getTipoVehivulo(),cf.getTipoTarifa(),cf.getAbono(),fecha,cf.getMulta()};
                 modelo.addRow(rowData);
                 tblClientesFijos.setModel(modelo);
             }
@@ -689,7 +692,10 @@ public final class GestionClientesFijos extends javax.swing.JInternalFrame {
           
           cliente.setEspacioParqueo( Integer.parseInt(cbxEspacioAsignar.getSelectedItem().toString().trim()));
           
-          if(controladorEspacios.AsignarEspacio(Integer.parseInt(cbxEspacioAsignar.getSelectedItem().toString().trim()), txtCedula.getText().trim())){
+           double multa= controladorClienteFijo.generarMulta(cliente);
+               cliente.setMulta(multa);
+          
+          if(controladorEspacios.AsignarEspacio(Integer.parseInt(cbxEspacioAsignar.getSelectedItem().toString().trim()),""+cliente.getId())){
                 try {
                     System.out.println("SE ASIGNO ESPACIO CORRECTAMENTE AL OBJETO "+cliente);
                     controladorEspacios.guardarDatos();
@@ -735,7 +741,9 @@ public final class GestionClientesFijos extends javax.swing.JInternalFrame {
           cliente.setAbono(calcularSaldoAbono (Double.parseDouble(txtAbono.getText().trim()),cliente,tarifa1));
           
           cliente.setEspacioParqueo( Integer.parseInt(cbxEspacioAsignar.getSelectedItem().toString().trim()));
-   
+             
+          double multa= controladorClienteFijo.generarMulta(cliente);
+               cliente.setMulta(multa);
         if(controladorClienteFijo.actualizar(cliente)){
             controladorEspacios.AsignarEspacio(Integer.parseInt(txtEspActual.getText().trim()), "");
             if(controladorEspacios.AsignarEspacio(Integer.parseInt(cbxEspacioAsignar.getSelectedItem().toString().trim()), txtCedula.getText().trim())){
@@ -857,7 +865,6 @@ public final class GestionClientesFijos extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox<String> cbxEspacioAsignar;
     private javax.swing.JComboBox<String> cbxTarifa;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
@@ -866,15 +873,10 @@ public final class GestionClientesFijos extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
@@ -885,12 +887,7 @@ public final class GestionClientesFijos extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtCedula;
     private javax.swing.JTextField txtDireccion;
     private javax.swing.JTextField txtEspActual;
-    private javax.swing.JTextField txtGDireccion1;
-    private javax.swing.JTextField txtGapellido1;
-    private javax.swing.JTextField txtGcedula1;
-    private javax.swing.JTextField txtGnombre1;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtTelefono;
-    private javax.swing.JTextField txtTelefono1;
     // End of variables declaration//GEN-END:variables
 }

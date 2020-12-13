@@ -22,12 +22,13 @@ import java.util.logging.Logger;
  *
  * @author user
  */
-public  class controladorEspacios {
+public final  class controladorEspacios {
 
     Map<Integer, String> espacios;
 
     public controladorEspacios() {
         this.espacios = new HashMap<>();
+      // cargarEspaciosDefault();
         
     }
 
@@ -42,6 +43,7 @@ public  class controladorEspacios {
         } catch (IOException ex) {
             Logger.getLogger(controladorEspacios.class.getName()).log(Level.SEVERE, null, ex);
         }
+        System.out.println("ESPACIOS GENERADOS CORRECTAMENTE");
     }
 
     public void cargarDatos() throws ClassNotFoundException, IOException {
@@ -83,11 +85,11 @@ public  class controladorEspacios {
 
     }
 
-    public String buscarEspacioAsignado(String cedula) {
+    public String buscarEspacioAsignado(int id) {
         for (Map.Entry<Integer, String> entry : espacios.entrySet()) {
 
-            if (entry.getValue().equals(cedula)) {
-                return entry.getKey().toString();
+            if (entry.getKey().equals(""+id)) {
+                return entry.getValue();
             }
 
         }

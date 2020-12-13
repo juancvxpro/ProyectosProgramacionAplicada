@@ -5,6 +5,7 @@
  */
 package ec.edu.ups.vista;
 
+import ec.edu.ups.controlador.controladorHistorialClienteM;
 import ec.edu.ups.controlador.controladorTarifa;
 import ec.edu.ups.modelo.Tarifa;
 import java.io.IOException;
@@ -20,10 +21,13 @@ public class Tarifas extends javax.swing.JInternalFrame {
 
     private String ruta = "datos/Tarifa.obj";
     private controladorTarifa controladorTarifa;
+    
+    
 
     public Tarifas(controladorTarifa controladorTarifa) {
         initComponents();
         this.controladorTarifa = controladorTarifa;
+       
 
         try {
             controladorTarifa.cargarDatos();

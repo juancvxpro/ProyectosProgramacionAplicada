@@ -7,6 +7,8 @@ package ec.edu.ups.controlador;
 
 import ec.edu.ups.modelo.ClienteFijo;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.List;
 
@@ -57,5 +59,37 @@ public class controladorClienteFijo extends AbstractControlador<ClienteFijo> {
         
     }
       
-      
+       public double generarMulta(ClienteFijo cliente){
+        
+       double valorMulta=0;
+        
+       Calendar fechaExpiracion =cliente.getFechaExpiracion();
+       Calendar fechaActual = new GregorianCalendar();
+       int dias=-1;
+       
+       while(fechaExpiracion.before(fechaActual)|| fechaExpiracion.equals(fechaActual)){
+       dias++;
+       fechaExpiracion.add(Calendar.DATE,1);
+       }
+       //si han transcurrido 7 dias ( una semana) de la fecha, se le aumenta un 10% al bono a pagar
+       if(dias==7){
+     valorMulta= cliente.getAbono()+(cliente.getAbono()*0.1);
+       }
+        return valorMulta;
+    
+    }
+       public ClienteFijo buscarCliente(String cedula){
+           
+           ClienteFijo u;
+        Iterator i = super.getLista().iterator();
+        while (i.hasNext()) {
+            u = (ClienteFijo) i.next();
+            if(u.getCedula().trim().equals(cedula.trim())){
+            return u;
+            }
+            
+        }
+        return null;
+       
+       }
 }
