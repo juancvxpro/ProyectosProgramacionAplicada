@@ -31,15 +31,13 @@ public final class VentanaIniciarSesion extends javax.swing.JInternalFrame {
      */
     public VentanaIniciarSesion(VentanaPrincipal ventanaPrincipal, controladorUsuario controladorUsuario)  {
         initComponents();
-
+     
         this.ventanaPrincipal = ventanaPrincipal;
         this.controladorUsuario = controladorUsuario;
-         //generarAdmin();
+       
         try {
             controladorUsuario.cargarDatos();
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(VentanaIniciarSesion.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
+        } catch (ClassNotFoundException | IOException ex) {
             Logger.getLogger(VentanaIniciarSesion.class.getName()).log(Level.SEVERE, null, ex);
         }
 
@@ -161,11 +159,15 @@ public final class VentanaIniciarSesion extends javax.swing.JInternalFrame {
         ventanaPrincipal.getRegistrosMonetariosMenuItem().setVisible(true);
         ventanaPrincipal.getVerTablasMenu().setVisible(true);
         ventanaPrincipal.getHistorialMenu().setVisible(true);
-        ventanaPrincipal.getUsuariosMenuItem().setVisible(true);
+        ventanaPrincipal.getExitMenuItem().setVisible(false);
+        
             if (controladorUsuario.getUsuario().getRol().equals("user")) {
-                ventanaPrincipal.getUsuariosMenuItem().setVisible(true);
+                ventanaPrincipal.getUsuariosMenuItem().setVisible(false);
               
-            } 
+            }else{
+            
+            ventanaPrincipal.getUsuariosMenuItem().setVisible(true);
+            }
             this.dispose();
             Limpiar();
             JOptionPane.showMessageDialog(this, "Inicio de sesion exitoso");
@@ -178,6 +180,8 @@ public final class VentanaIniciarSesion extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnIniciarSesionActionPerformed
     public void generarAdmin() {
         Usuario admin = new Usuario("1303753618","PABLO","NIETO","EL VECINO","0987645328","admin","pnieto@hotmail.com","admin");
+        admin.setCodigo(1);
+        
        
         controladorUsuario.crear(admin);
         System.out.println("ADMIN GENERADO CORRECTAMENTE");

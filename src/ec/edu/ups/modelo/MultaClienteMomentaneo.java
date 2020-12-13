@@ -12,12 +12,12 @@ import java.io.Serializable;
  * @author user
  */
 public class MultaClienteMomentaneo implements Serializable {
-    
-private int codigo;
- 
- private double cantidad;
- 
- private TicketClienteMomentaneo clienteM;
+
+    private int codigo;
+
+    private double cantidad;
+
+    private TicketClienteMomentaneo clienteM;
 
     public MultaClienteMomentaneo() {
     }
@@ -51,8 +51,5 @@ private int codigo;
     public void setClienteM(TicketClienteMomentaneo clienteM) {
         this.clienteM = clienteM;
     }
- 
- 
- 
-    
+
 }

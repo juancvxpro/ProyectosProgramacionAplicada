@@ -7,30 +7,29 @@ package ec.edu.ups.modelo;
 
 import java.util.Calendar;
 
-
 /**
  *
  * @author user
  */
-public class ClienteFijo extends Persona  {
-    
+public class ClienteFijo extends Persona {
+
     private int id;
-    
+
     private String tipoVehivulo;
-    
-    private Tarifa tarifa;
-    
+
+    private String tipoTarifa;
+
     private Double abono;
-    
-    private Calendar fechaExpiracion ;
-    
+
+    private Calendar fechaExpiracion;
+
     private int espacioParqueo;
 
-    public ClienteFijo(int id, String tipoVehivulo, Tarifa tarifa, Double abono, Calendar fechaExpiracion, int espacioParqueo, String cedula, String nombre, String apellido, String direccion, String telefono) {
+    public ClienteFijo(int id, String tipoVehivulo, String tarifa, Double abono, Calendar fechaExpiracion, int espacioParqueo, String cedula, String nombre, String apellido, String direccion, String telefono) {
         super(cedula, nombre, apellido, direccion, telefono);
         this.id = id;
         this.tipoVehivulo = tipoVehivulo;
-        this.tarifa = tarifa;
+        this.tipoTarifa = tarifa;
         this.abono = abono;
         this.fechaExpiracion = fechaExpiracion;
         this.espacioParqueo = espacioParqueo;
@@ -44,10 +43,6 @@ public class ClienteFijo extends Persona  {
         this.espacioParqueo = espacioParqueo;
     }
 
-    
-    
-    
-
     public Calendar getFechaExpiracion() {
         return fechaExpiracion;
     }
@@ -55,8 +50,6 @@ public class ClienteFijo extends Persona  {
     public void setFechaExpiracion(Calendar fechaExpiracion) {
         this.fechaExpiracion = fechaExpiracion;
     }
-
-    
 
     public int getId() {
         return id;
@@ -74,12 +67,12 @@ public class ClienteFijo extends Persona  {
         this.tipoVehivulo = tipoVehivulo;
     }
 
-    public Tarifa getTarifa() {
-        return tarifa;
+    public String getTipoTarifa() {
+        return tipoTarifa;
     }
 
-    public void setTarifa(Tarifa tarifa) {
-        this.tarifa = tarifa;
+    public void setTipoTarifa(String tipoTarifa) {
+        this.tipoTarifa = tipoTarifa;
     }
 
     public Double getAbono() {
@@ -114,14 +107,5 @@ public class ClienteFijo extends Persona  {
         }
         return true;
     }
-    
-    
-    
 
-  
-    
-
-   
-    
-    
 }

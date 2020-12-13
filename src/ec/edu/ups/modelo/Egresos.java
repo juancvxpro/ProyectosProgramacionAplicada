@@ -12,13 +12,14 @@ import java.util.Date;
  * @author user
  */
 public class Egresos {
-     private int id;
-    
+
+    private int id;
+
     private Date fechaHora;
-    
+
     private String descripcion;
-    
-    private double  egreso;
+
+    private double egreso;
 
     public Egresos() {
     }
@@ -86,7 +87,5 @@ public class Egresos {
         }
         return true;
     }
-    
-    
-    
+
 }

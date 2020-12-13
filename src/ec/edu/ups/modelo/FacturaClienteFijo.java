@@ -10,11 +10,11 @@ package ec.edu.ups.modelo;
  * @author user
  */
 public class FacturaClienteFijo {
-    
+
     int id;
-    
+
     private ClienteFijo clientefijo;
-    
+
     private String descripcion;
 
     public FacturaClienteFijo() {
@@ -25,7 +25,7 @@ public class FacturaClienteFijo {
         this.clientefijo = clientefijo;
         this.descripcion = descripcion;
     }
-    
+
     public int getId() {
         return id;
     }
@@ -79,9 +79,5 @@ public class FacturaClienteFijo {
     public String toString() {
         return "FacturaClienteFijo{" + "id=" + id + ", clientefijo=" + clientefijo + ", descripcion=" + descripcion + '}';
     }
-    
-    
-    
-    
-    
+
 }

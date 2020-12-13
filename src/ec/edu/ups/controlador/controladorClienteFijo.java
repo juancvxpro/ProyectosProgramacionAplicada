@@ -24,7 +24,7 @@ public class controladorClienteFijo extends AbstractControlador<ClienteFijo> {
 
     @Override
     public boolean validar(ClienteFijo objeto) {
-        return false;
+        return true;
         
     }
 
@@ -56,4 +56,6 @@ public class controladorClienteFijo extends AbstractControlador<ClienteFijo> {
         return lista;
         
     }
+      
+      
 }

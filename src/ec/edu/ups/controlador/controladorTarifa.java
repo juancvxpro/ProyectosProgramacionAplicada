@@ -7,6 +7,7 @@ package ec.edu.ups.controlador;
 
 import ec.edu.ups.modelo.Tarifa;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -17,9 +18,9 @@ public class controladorTarifa extends AbstractControlador<Tarifa>{
     
     private Tarifa tarifa;
 
-    public controladorTarifa(String ruta, Tarifa tarifa) {
+    public controladorTarifa(String ruta) {
         super(ruta);
-        this.tarifa=tarifa;
+       
         
     }
     
@@ -27,7 +28,7 @@ public class controladorTarifa extends AbstractControlador<Tarifa>{
 
     @Override
     public boolean validar(Tarifa objeto) {
-        return false;
+        return true;
         
     }
 
@@ -53,5 +54,17 @@ public class controladorTarifa extends AbstractControlador<Tarifa>{
     public void setTarifa(Tarifa tarifa) {
         this.tarifa = tarifa;
     }
-    
+    public List<Tarifa> tarifas() {
+        
+        List<Tarifa> lista = new ArrayList();
+        Tarifa u;
+        Iterator i = super.getLista().iterator();
+        while (i.hasNext()) {
+            u = (Tarifa) i.next();
+            lista.add(u);
+            
+        }
+        return lista;
+        
+    }
 }

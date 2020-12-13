@@ -11,26 +11,25 @@ import java.util.Calendar;
  *
  * @author user
  */
-public class TicketClienteMomentaneo  {
-    
-    
-  private int id;
-  
-  private String nombre;
-  
-  private String tipoVehiculo;
-  
-  private Calendar fechaHoraIngreso;
-  
-  private Calendar fechaHoraSalida;
-  
-  private int espacioParqueo;
-  
-  private Double minutos;
-  
-  private Double tarifa;
-  
-  private boolean estado;
+public class TicketClienteMomentaneo {
+
+    private int id;
+
+    private String nombre;
+
+    private String tipoVehiculo;
+
+    private Calendar fechaHoraIngreso;
+
+    private Calendar fechaHoraSalida;
+
+    private int espacioParqueo;
+
+    private Double minutos;
+
+    private Double tarifa;
+
+    private boolean estado;
 
     public TicketClienteMomentaneo() {
     }
@@ -71,8 +70,6 @@ public class TicketClienteMomentaneo  {
         this.tarifa = tarifa;
     }
 
-  
-
     public Calendar getFechaHoraIngreso() {
         return fechaHoraIngreso;
     }
@@ -96,7 +93,6 @@ public class TicketClienteMomentaneo  {
     public void setMinutos(Double minutos) {
         this.minutos = minutos;
     }
- 
 
     public boolean isEstado() {
         return estado;
@@ -105,9 +101,6 @@ public class TicketClienteMomentaneo  {
     public void setEstado(boolean estado) {
         this.estado = estado;
     }
-  
-    
-  
 
     public int getEspacioParqueo() {
         return espacioParqueo;
@@ -116,11 +109,7 @@ public class TicketClienteMomentaneo  {
     public void setEspacioParqueo(int espacioParqueo) {
         this.espacioParqueo = espacioParqueo;
     }
-  
-  
 
- 
-    
     public int getId() {
         return id;
     }
@@ -153,9 +142,5 @@ public class TicketClienteMomentaneo  {
         }
         return true;
     }
-   
-  
-    
-    
-    
+
 }

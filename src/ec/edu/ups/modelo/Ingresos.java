@@ -12,15 +12,15 @@ import java.util.Date;
  *
  * @author user
  */
-public class Ingresos implements Serializable{
-    
+public class Ingresos implements Serializable {
+
     private int id;
-    
+
     private Date fechaHora;
-    
+
     private String descripcion;
-    
-    private double  ingreso;
+
+    private double ingreso;
 
     public Ingresos() {
     }
@@ -88,10 +88,5 @@ public class Ingresos implements Serializable{
         }
         return true;
     }
-    
-    
-    
-    
-    
-    
+
 }

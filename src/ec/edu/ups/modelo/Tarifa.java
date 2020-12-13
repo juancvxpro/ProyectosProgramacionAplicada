@@ -5,44 +5,43 @@
  */
 package ec.edu.ups.modelo;
 
+import java.io.Serializable;
+
 /**
  *
  * @author user
  */
-public class Tarifa {
-    
+public class Tarifa implements Serializable {
+
     int codigo;
-    
-    private String tipoTarifa;
-    
+
     //motocicletas
-    private Double mediaHoraM;
-    
-    private Double horaM;
-    
-    private Double mensualM;
-    
+    private double mediaHoraM;
+
+    private double horaM;
+
+    private double mensualM;
+
     // Automoviles 
-    private Double mediaHoraA;
-    
-    private Double horaA;
-    
-    private Double mensualA;
-    
+    private double mediaHoraA;
+
+    private double horaA;
+
+    private double mensualA;
+
     //Pesados
-    
-    private Double mediaHoraP;
-    
-    private Double horaP;
-    
-    private Double mensualP;
+    private double mediaHoraP;
+
+    private double horaP;
+
+    private double mensualP;
 
     public Tarifa() {
     }
 
-    public Tarifa(int codigo, String tipoTarifa, Double mediaHoraM, Double horaM, Double mensualM, Double mediaHoraA, Double horaA, Double mensualA, Double mediaHoraP, Double horaP, Double mensualP) {
+    public Tarifa(int codigo, double mediaHoraM, double horaM, double mensualM, double mediaHoraA, double horaA, double mensualA, double mediaHoraP, double horaP, double mensualP) {
         this.codigo = codigo;
-        this.tipoTarifa = tipoTarifa;
+
         this.mediaHoraM = mediaHoraM;
         this.horaM = horaM;
         this.mensualM = mensualM;
@@ -54,16 +53,6 @@ public class Tarifa {
         this.mensualP = mensualP;
     }
 
-    public String getTipoTarifa() {
-        return tipoTarifa;
-    }
-
-    public void setTipoTarifa(String tipoTarifa) {
-        this.tipoTarifa = tipoTarifa;
-    }
-
-   
-   
     public int getCodigo() {
         return codigo;
     }
@@ -72,75 +61,75 @@ public class Tarifa {
         this.codigo = codigo;
     }
 
-    public Double getMediaHoraM() {
+    public double getMediaHoraM() {
         return mediaHoraM;
     }
 
-    public void setMediaHoraM(Double mediaHoraM) {
+    public void setMediaHoraM(double mediaHoraM) {
         this.mediaHoraM = mediaHoraM;
     }
 
-    public Double getHoraM() {
+    public double getHoraM() {
         return horaM;
     }
 
-    public void setHoraM(Double horaM) {
+    public void setHoraM(double horaM) {
         this.horaM = horaM;
     }
 
-    public Double getMensualM() {
+    public double getMensualM() {
         return mensualM;
     }
 
-    public void setMensualM(Double mensualM) {
+    public void setMensualM(double mensualM) {
         this.mensualM = mensualM;
     }
 
-    public Double getMediaHoraA() {
+    public double getMediaHoraA() {
         return mediaHoraA;
     }
 
-    public void setMediaHoraA(Double mediaHoraA) {
+    public void setMediaHoraA(double mediaHoraA) {
         this.mediaHoraA = mediaHoraA;
     }
 
-    public Double getHoraA() {
+    public double getHoraA() {
         return horaA;
     }
 
-    public void setHoraA(Double horaA) {
+    public void setHoraA(double horaA) {
         this.horaA = horaA;
     }
 
-    public Double getMensualA() {
+    public double getMensualA() {
         return mensualA;
     }
 
-    public void setMensualA(Double mensualA) {
+    public void setMensualA(double mensualA) {
         this.mensualA = mensualA;
     }
 
-    public Double getMediaHoraP() {
+    public double getMediaHoraP() {
         return mediaHoraP;
     }
 
-    public void setMediaHoraP(Double mediaHoraP) {
+    public void setMediaHoraP(double mediaHoraP) {
         this.mediaHoraP = mediaHoraP;
     }
 
-    public Double getHoraP() {
+    public double getHoraP() {
         return horaP;
     }
 
-    public void setHoraP(Double horaP) {
+    public void setHoraP(double horaP) {
         this.horaP = horaP;
     }
 
-    public Double getMensualP() {
+    public double getMensualP() {
         return mensualP;
     }
 
-    public void setMensualP(Double mensualP) {
+    public void setMensualP(double mensualP) {
         this.mensualP = mensualP;
     }
 
@@ -185,10 +174,5 @@ public class Tarifa {
         sb.append('}');
         return sb.toString();
     }
-    
-    
-    
-   
-    
-    
+
 }

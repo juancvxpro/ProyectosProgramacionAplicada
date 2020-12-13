@@ -12,13 +12,12 @@ import java.io.Serializable;
  * @author user
  */
 public class MultaClienteFijo implements Serializable {
-    
- private int codigo;
- 
- private double cantidad;
- 
- private ClienteFijo clienteF;
- 
+
+    private int codigo;
+
+    private double cantidad;
+
+    private ClienteFijo clienteF;
 
     public MultaClienteFijo() {
     }
@@ -37,8 +36,6 @@ public class MultaClienteFijo implements Serializable {
         this.clienteF = clienteF;
     }
 
-    
-
     public int getCodigo() {
         return codigo;
     }
@@ -54,8 +51,6 @@ public class MultaClienteFijo implements Serializable {
     public void setCantidad(double cantidad) {
         this.cantidad = cantidad;
     }
-
-    
 
     @Override
     public int hashCode() {
@@ -92,8 +87,4 @@ public class MultaClienteFijo implements Serializable {
         return sb.toString();
     }
 
-   
- 
- 
-    
 }

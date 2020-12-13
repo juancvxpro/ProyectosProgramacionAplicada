@@ -12,20 +12,20 @@ import java.util.Calendar;
  *
  * @author user
  */
-public class FacturaClienteM implements Serializable{
-    
+public class FacturaClienteM implements Serializable {
+
     private int id;
-    
+
     private Calendar Fecha;
-    
+
     private String nombres;
-    
+
     private String drireccion;
-    
+
     private String cedula;
-    
+
     private String telefono;
-    
+
     private TicketClienteMomentaneo ticket;
 
     public FacturaClienteM() {
@@ -40,8 +40,6 @@ public class FacturaClienteM implements Serializable{
         this.telefono = telefono;
         this.ticket = ticket;
     }
-
-   
 
     public Calendar getFecha() {
         return Fecha;
@@ -123,9 +121,5 @@ public class FacturaClienteM implements Serializable{
         }
         return true;
     }
-    
-    
-    
-    
-    
+
 }

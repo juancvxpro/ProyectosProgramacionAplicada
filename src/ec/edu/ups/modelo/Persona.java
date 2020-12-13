@@ -1,4 +1,5 @@
 package ec.edu.ups.modelo;
+
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -15,16 +16,14 @@ public class Persona implements Serializable {
     private String apellido;
 
     private String direccion;
-    
-    
+
     private String tlf;
 
-    public Persona(String cedula, String nombre, String apellido, String direccion,String telefono) {
+    public Persona(String cedula, String nombre, String apellido, String direccion, String telefono) {
         this.cedula = cedula;
         this.nombre = nombre;
         this.apellido = apellido;
-        this.tlf=telefono;
-      
+        this.tlf = telefono;
 
         this.direccion = direccion;
     }
@@ -60,8 +59,6 @@ public class Persona implements Serializable {
     public void setTlf(String tlf) {
         this.tlf = tlf;
     }
-
-    
 
     public String getDireccion() {
         return direccion;
@@ -107,7 +104,5 @@ public class Persona implements Serializable {
         sb.append('}');
         return sb.toString();
     }
-
- 
 
 }

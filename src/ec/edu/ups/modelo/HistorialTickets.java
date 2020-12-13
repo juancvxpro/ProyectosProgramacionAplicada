@@ -13,12 +13,12 @@ import java.util.Calendar;
  * @author user
  */
 public class HistorialTickets implements Serializable {
-    
+
     private int id;
     private Calendar FechaHora;
-    
+
     private String descripcion;
-    
+
     private TicketClienteMomentaneo clienteM;
 
     public HistorialTickets() {
@@ -98,9 +98,5 @@ public class HistorialTickets implements Serializable {
         sb.append('}');
         return sb.toString();
     }
-    
-    
-    
 
-    
 }
