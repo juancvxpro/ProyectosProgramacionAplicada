@@ -5,11 +5,13 @@
  */
 package ec.edu.ups.modelo;
 
+import java.io.Serializable;
+
 /**
  *
  * @author user
  */
-public class FacturaClienteFijo  {
+public class FacturaClienteFijo implements Serializable {
 
     int id;
 
