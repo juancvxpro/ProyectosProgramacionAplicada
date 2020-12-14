@@ -38,6 +38,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private ConsultaMulta consultaMulta;
     private ClientesFijosPuesto clientesFijosPuesto;
     private Reportes reportes;
+    private FacturaClienteMo facturaClienteM;
 
     private controladorUsuario controladorUsuario;
     private controladorTarifa controladorTarifa;
@@ -73,6 +74,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         consultaMulta = new ConsultaMulta(controladorEspacios,controladorClienteFijo,controladorTicketCliente);
         clientesFijosPuesto = new ClientesFijosPuesto(controladorClienteFijo,controladorHistorialClienteF);
         reportes= new Reportes(controladorIngresos,controladorEgreso);
+        facturaClienteM= new FacturaClienteMo(controladorFacturaClienteM,controladorTicketCliente);
         
         
         
@@ -259,6 +261,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         facturaClienteMomentaneoMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.ALT_DOWN_MASK));
         facturaClienteMomentaneoMenuItem.setMnemonic('y');
         facturaClienteMomentaneoMenuItem.setText("Facturar Cliente Momentaneo");
+        facturaClienteMomentaneoMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                facturaClienteMomentaneoMenuItemActionPerformed(evt);
+            }
+        });
         menuFacturas.add(facturaClienteMomentaneoMenuItem);
 
         menuBar.add(menuFacturas);
@@ -279,7 +286,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_TicketsMenuItemActionPerformed
 
     private void FacturaClienteFijoMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FacturaClienteFijoMenuItemActionPerformed
-        // TODO add your handling code here:
+      
     }//GEN-LAST:event_FacturaClienteFijoMenuItemActionPerformed
 
     private void CerrarSesionMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CerrarSesionMenuItemActionPerformed
@@ -327,6 +334,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         desktopPane.add(reportes);
         reportes.setVisible(true);
     }//GEN-LAST:event_RegistrosMonetariosMenuItemActionPerformed
+
+    private void facturaClienteMomentaneoMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_facturaClienteMomentaneoMenuItemActionPerformed
+       desktopPane.add(facturaClienteM);
+       facturaClienteM.setVisible(true);
+    }//GEN-LAST:event_facturaClienteMomentaneoMenuItemActionPerformed
 
     /**
      * @param args the command line arguments
