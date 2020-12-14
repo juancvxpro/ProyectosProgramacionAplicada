@@ -5,17 +5,19 @@
  */
 package ec.edu.ups.modelo;
 
+import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
  *
  * @author user
  */
-public class Egresos {
+public class Egresos  implements Serializable{
 
     private int id;
 
-    private Date fechaHora;
+    private Calendar fechaHora;
 
     private String descripcion;
 
@@ -24,7 +26,7 @@ public class Egresos {
     public Egresos() {
     }
 
-    public Egresos(int id, Date fechaHora, String descripcion, double egreso) {
+    public Egresos(int id, Calendar fechaHora, String descripcion, double egreso) {
         this.id = id;
         this.fechaHora = fechaHora;
         this.descripcion = descripcion;
@@ -39,11 +41,11 @@ public class Egresos {
         this.id = id;
     }
 
-    public Date getFechaHora() {
+    public Calendar getFechaHora() {
         return fechaHora;
     }
 
-    public void setFechaHora(Date fechaHora) {
+    public void setFechaHora(Calendar fechaHora) {
         this.fechaHora = fechaHora;
     }
 

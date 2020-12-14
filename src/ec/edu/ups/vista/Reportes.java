@@ -5,10 +5,18 @@
  */
 package ec.edu.ups.vista;
 
+import ec.edu.ups.controlador.controladorEgreso;
 import ec.edu.ups.controlador.controladorIngreso;
+import ec.edu.ups.modelo.Egresos;
 import ec.edu.ups.modelo.Ingresos;
+import java.io.IOException;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -18,11 +26,24 @@ import javax.swing.table.DefaultTableModel;
 public class Reportes extends javax.swing.JInternalFrame {
      private int idIngreso=0;
      private int id =0;
+     private String rutaE="datos/Egresos.obj";
+     private String rutaI="datos/Ingresos.obj";
      private controladorIngreso controladorIngreso;
+     private controladorEgreso controladorEgreso;
      
-    public Reportes(controladorIngreso controladorIngreso) {
+    public Reportes(controladorIngreso controladorIngreso,controladorEgreso controladorEgreso) {
         initComponents();
         this.controladorIngreso=controladorIngreso;
+        this.controladorEgreso=controladorEgreso;
+        
+         try {
+             controladorIngreso.cargarDatos();
+              controladorEgreso.cargarDatos();
+         } catch (ClassNotFoundException | IOException ex) {
+             Logger.getLogger(Reportes.class.getName()).log(Level.SEVERE, null, ex);
+         }
+       
+        
     }
 
     /**
@@ -37,17 +58,19 @@ public class Reportes extends javax.swing.JInternalFrame {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblIngresos = new javax.swing.JTable();
+        jLabel3 = new javax.swing.JLabel();
+        txtTotalIngresos = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblEgresos = new javax.swing.JTable();
+        txtTotalEgresos = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         txtCantidadEgreso = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         txtDescripcion = new javax.swing.JTextField();
-        txtTotalIngresos = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        txtCantidadEgreso1 = new javax.swing.JTextField();
+        txtDisponible = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         btnEliminarIngreso = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
@@ -87,6 +110,11 @@ public class Reportes extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(tblIngresos);
 
+        jLabel3.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jLabel3.setText("Total:");
+
+        txtTotalIngresos.setEditable(false);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -95,13 +123,23 @@ public class Reportes extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 754, Short.MAX_VALUE)
                 .addGap(19, 19, 19))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel3)
+                .addGap(18, 18, 18)
+                .addComponent(txtTotalIngresos, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(22, 22, 22))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(37, 37, 37)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(txtTotalIngresos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Egresos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 1, 14))); // NOI18N
@@ -125,7 +163,17 @@ public class Reportes extends javax.swing.JInternalFrame {
                 return types [columnIndex];
             }
         });
+        tblEgresos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblEgresosMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tblEgresos);
+
+        txtTotalEgresos.setEditable(false);
+
+        jLabel6.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jLabel6.setText("Total:");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -135,28 +183,35 @@ public class Reportes extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 754, Short.MAX_VALUE)
                 .addGap(19, 19, 19))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel6)
+                .addGap(18, 18, 18)
+                .addComponent(txtTotalEgresos, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(21, Short.MAX_VALUE)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtTotalEgresos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6))
                 .addContainerGap())
         );
 
         jLabel2.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel2.setText("Descripcion");
 
-        jLabel3.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jLabel3.setText("Total:");
-
         jLabel4.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel4.setText(" Cantidad   ($)");
 
-        txtTotalIngresos.setEditable(false);
-
         jLabel5.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel5.setText("Disponible: ($)");
+
+        txtDisponible.setEditable(false);
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Acciones Ingresos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 0, 12))); // NOI18N
 
@@ -253,16 +308,12 @@ public class Reportes extends javax.swing.JInternalFrame {
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addGap(52, 52, 52)
-                        .addComponent(txtTotalIngresos, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addGap(40, 40, 40)
                         .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(104, 104, 104)
                         .addComponent(jLabel4)
-                        .addGap(98, 98, 98)
+                        .addGap(72, 72, 72)
                         .addComponent(txtCantidadEgreso, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -274,7 +325,7 @@ public class Reportes extends javax.swing.JInternalFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtCantidadEgreso1, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtDisponible, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE)))
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
@@ -298,12 +349,9 @@ public class Reportes extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
-                            .addComponent(txtCantidadEgreso1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txtDisponible, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(txtTotalIngresos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
+                        .addGap(38, 38, 38)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -311,7 +359,7 @@ public class Reportes extends javax.swing.JInternalFrame {
                     .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)
                     .addComponent(txtCantidadEgreso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(85, Short.MAX_VALUE))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
 
         pack();
@@ -337,6 +385,25 @@ public class Reportes extends javax.swing.JInternalFrame {
    txtTotalIngresos.setText(""+calcularTotalIngresos(controladorIngreso.getLista()));
    }
    
+   public void cargarEgresosTbl(){
+   String fecha="";
+   String hora="";
+   DefaultTableModel modelo = (DefaultTableModel) tblEgresos.getModel();
+        modelo.setRowCount(0);
+        if (controladorEgreso.egresos()!= null) {
+            for (Egresos egreso : controladorEgreso.egresos()) {
+                Calendar f =egreso.getFechaHora();
+                fecha=f.get(Calendar.DAY_OF_MONTH)+"/"+(f.get(Calendar.MONTH)+1)+"/"+f.get(Calendar.YEAR);
+                hora=f.get(Calendar.HOUR_OF_DAY)+":"+(f.get(Calendar.MINUTE))+":"+f.get(Calendar.SECOND);
+                Object[] rowData = {egreso.getId(),fecha,hora,egreso.getDescripcion(),egreso.getEgreso()};
+                modelo.addRow(rowData);
+                tblIngresos.setModel(modelo);
+            }
+        } else {
+            System.out.println("LISTA VACIA");
+        }
+        txtTotalEgresos.setText(""+calcularTotalEgresos(controladorEgreso.getLista()));
+   }
    public double calcularTotalIngresos(List<Ingresos> ingresos){
        double acum=0;
        for(Ingresos ingreso : ingresos){
@@ -345,29 +412,150 @@ public class Reportes extends javax.swing.JInternalFrame {
          return acum;
    
    }
+   public void calcularSaldo(){
+       if(txtTotalIngresos.getText().isEmpty()&&txtTotalEgresos.getText().isEmpty()){
+       
+       }else{
+       
+        String ingresos =txtTotalIngresos.getText().trim();
+   String egresos = txtTotalEgresos.getText().trim();
+    double total=0;
+    
+    total=Double.parseDouble(ingresos)-Double.parseDouble(egresos);
+    txtDisponible.setText(""+total);
+       }
+  
+   }
+   public double calcularTotalEgresos(List<Egresos> egresos){
+       double acum=0;
+        for(Egresos egreso : egresos){
+         acum=acum+egreso.getEgreso();
+       }
+         return acum;
+   
+   }
     private void btnEliminarIngresoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarIngresoActionPerformed
+       if(idIngreso!=0){
+       Ingresos comparar = new Ingresos ();
+       comparar.setId(id);
+       
+       Optional<Ingresos> ing =controladorIngreso.buscar(comparar);
+       int d = JOptionPane.showConfirmDialog(this, "Esta seguro de elminar el ingreso seleccionado?-");
+       Ingresos ingreso= ing.get();
+        if (d == JOptionPane.YES_OPTION) {
+       if(controladorIngreso.eliminar(ingreso)){
+             
+       JOptionPane.showMessageDialog(this, "Ingreso eliminado correctamente");
+       
+           try {
+               controladorIngreso.guardarDatos(rutaI);
+           } catch (IOException ex) {
+               Logger.getLogger(Reportes.class.getName()).log(Level.SEVERE, null, ex);
+           }
+            
+        }
+        }
+        }
+       cargarIngresosTbl();
        
     }//GEN-LAST:event_btnEliminarIngresoActionPerformed
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
-       
+     cargarEgresosTbl();
+     txtDescripcion.setText("");
+     txtCantidadEgreso.setText("");
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
     private void btnActualizarEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarEActionPerformed
-        // TODO add your handling code here:
+        if(txtDescripcion.getText().isEmpty()||txtCantidadEgreso.getText().isEmpty()){
+        JOptionPane.showMessageDialog(this, "Campos vacios");
+       }else {
+           
+           Egresos comparar= new Egresos();
+           comparar.setId(id);
+           Optional<Egresos> eg = controladorEgreso.buscar(comparar);
+           Egresos egreso = eg.get();
+           egreso.setDescripcion(txtDescripcion.getText());
+           egreso.setEgreso(Double.parseDouble(txtCantidadEgreso.getText()));
+       if(controladorEgreso.actualizar(egreso)){
+       
+               try {
+                   controladorEgreso.guardarDatos(rutaE);
+               } catch (IOException ex) {
+                   Logger.getLogger(Reportes.class.getName()).log(Level.SEVERE, null, ex);
+               }
+               JOptionPane.showMessageDialog(this, "Egreso actualizado exitosamente");
+       }
+       }
+         cargarEgresosTbl();
     }//GEN-LAST:event_btnActualizarEActionPerformed
 
     private void btnGuardarEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarEActionPerformed
-        // TODO add your handling code here:
+       if(txtDescripcion.getText().isEmpty()||txtCantidadEgreso.getText().isEmpty()){
+        JOptionPane.showMessageDialog(this, "Campos vacios");
+       }else {
+           
+           Egresos egreso = new Egresos();
+           egreso.setId(controladorEgreso.generarId());
+           Calendar fecha = new GregorianCalendar();
+           egreso.setFechaHora(fecha);
+           egreso.setDescripcion(txtDescripcion.getText());
+           egreso.setEgreso(Double.parseDouble(txtCantidadEgreso.getText()));
+       if(controladorEgreso.crear(egreso)){
+       
+               try {
+                   controladorEgreso.guardarDatos(rutaE);
+               } catch (IOException ex) {
+                   Logger.getLogger(Reportes.class.getName()).log(Level.SEVERE, null, ex);
+               }
+               JOptionPane.showMessageDialog(this, "Egreso guardado exitosamente");
+       }
+       }
+       
+       cargarEgresosTbl();
     }//GEN-LAST:event_btnGuardarEActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        // TODO add your handling code here:
+        if(id!=0){
+       Egresos comparar = new Egresos ();
+       comparar.setId(id);
+       
+       Optional<Egresos> eg =controladorEgreso.buscar(comparar);
+       int d = JOptionPane.showConfirmDialog(this, "Esta seguro de elminar el ingreso seleccionado?-");
+       Egresos egreso= eg.get();
+        if (d == JOptionPane.YES_OPTION) {
+       if(controladorEgreso.eliminar(egreso)){
+             
+       JOptionPane.showMessageDialog(this, "Ingreso eliminado correctamente");
+       
+           try {
+               controladorEgreso.guardarDatos(rutaE);
+           } catch (IOException ex) {
+               Logger.getLogger(Reportes.class.getName()).log(Level.SEVERE, null, ex);
+           }
+            
+        }
+        }
+        }
+       cargarIngresosTbl();
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void tblIngresosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblIngresosMouseClicked
+      int index = tblIngresos.getSelectedRow();
+        idIngreso = Integer.parseInt("" + tblIngresos.getValueAt(index, 0));
       
+        
+       
     }//GEN-LAST:event_tblIngresosMouseClicked
+   
+    public double calcularValorDisponible(){
+         return 0;
+    
+    }
+    private void tblEgresosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblEgresosMouseClicked
+      int index = tblIngresos.getSelectedRow();
+      id = Integer.parseInt("" + tblIngresos.getValueAt(index, 0));
+    }//GEN-LAST:event_tblEgresosMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -380,6 +568,7 @@ public class Reportes extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -389,8 +578,9 @@ public class Reportes extends javax.swing.JInternalFrame {
     private javax.swing.JTable tblEgresos;
     private javax.swing.JTable tblIngresos;
     private javax.swing.JTextField txtCantidadEgreso;
-    private javax.swing.JTextField txtCantidadEgreso1;
     private javax.swing.JTextField txtDescripcion;
+    private javax.swing.JTextField txtDisponible;
+    private javax.swing.JTextField txtTotalEgresos;
     private javax.swing.JTextField txtTotalIngresos;
     // End of variables declaration//GEN-END:variables
 }

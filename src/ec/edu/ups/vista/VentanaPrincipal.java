@@ -37,6 +37,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private Tickets tickets;
     private ConsultaMulta consultaMulta;
     private ClientesFijosPuesto clientesFijosPuesto;
+    private Reportes reportes;
 
     private controladorUsuario controladorUsuario;
     private controladorTarifa controladorTarifa;
@@ -71,6 +72,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         tickets = new Tickets(controladorTicketCliente, controladorEspacios, controladorTarifa);
         consultaMulta = new ConsultaMulta(controladorEspacios,controladorClienteFijo,controladorTicketCliente);
         clientesFijosPuesto = new ClientesFijosPuesto(controladorClienteFijo,controladorHistorialClienteF);
+        reportes= new Reportes(controladorIngresos,controladorEgreso);
         
         
         
@@ -104,7 +106,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
         HistorialMenu = new javax.swing.JMenu();
         ClientesFijosHistorialMenuItem = new javax.swing.JMenuItem();
-        ClientesMhistorialMenuItem = new javax.swing.JMenuItem();
         RegistrosMonetariosMenuItem = new javax.swing.JMenuItem();
         IniciarSesionMenuItem = new javax.swing.JMenuItem();
         CerrarSesionMenuItem = new javax.swing.JMenuItem();
@@ -189,16 +190,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         ClientesFijosHistorialMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.ALT_DOWN_MASK));
         ClientesFijosHistorialMenuItem.setText("Clientes Fijos");
-        HistorialMenu.add(ClientesFijosHistorialMenuItem);
-
-        ClientesMhistorialMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_M, java.awt.event.InputEvent.ALT_DOWN_MASK));
-        ClientesMhistorialMenuItem.setText("Clientes Momentaneos");
-        ClientesMhistorialMenuItem.addActionListener(new java.awt.event.ActionListener() {
+        ClientesFijosHistorialMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ClientesMhistorialMenuItemActionPerformed(evt);
+                ClientesFijosHistorialMenuItemActionPerformed(evt);
             }
         });
-        HistorialMenu.add(ClientesMhistorialMenuItem);
+        HistorialMenu.add(ClientesFijosHistorialMenuItem);
 
         ArchivosMenu.add(HistorialMenu);
 
@@ -206,6 +203,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         RegistrosMonetariosMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/ups/vista/moneda.png"))); // NOI18N
         RegistrosMonetariosMenuItem.setMnemonic('s');
         RegistrosMonetariosMenuItem.setText("Registros Monetarios");
+        RegistrosMonetariosMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RegistrosMonetariosMenuItemActionPerformed(evt);
+            }
+        });
         ArchivosMenu.add(RegistrosMonetariosMenuItem);
 
         IniciarSesionMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.CTRL_DOWN_MASK));
@@ -296,10 +298,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         consultaMulta.setVisible(true);
     }//GEN-LAST:event_MultasMenuItemActionPerformed
 
-    private void ClientesMhistorialMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ClientesMhistorialMenuItemActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ClientesMhistorialMenuItemActionPerformed
-
     private void IniciarSesionMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IniciarSesionMenuItemActionPerformed
         desktopPane.add(ventanaIniciarSesion);
         ventanaIniciarSesion.setVisible(true);
@@ -319,6 +317,16 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         desktopPane.add(gestionClienteFijo);
         gestionClienteFijo.setVisible(true);
     }//GEN-LAST:event_ClientesFijosMenuItemActionPerformed
+
+    private void ClientesFijosHistorialMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ClientesFijosHistorialMenuItemActionPerformed
+        desktopPane.add(clientesFijosPuesto);
+        clientesFijosPuesto.setVisible(true);
+    }//GEN-LAST:event_ClientesFijosHistorialMenuItemActionPerformed
+
+    private void RegistrosMonetariosMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegistrosMonetariosMenuItemActionPerformed
+        desktopPane.add(reportes);
+        reportes.setVisible(true);
+    }//GEN-LAST:event_RegistrosMonetariosMenuItemActionPerformed
 
     /**
      * @param args the command line arguments
@@ -375,9 +383,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         return ClientesMenu;
     }
 
-    public JMenuItem getClientesMhistorialMenuItem() {
-        return ClientesMhistorialMenuItem;
-    }
+  
 
     public JMenuItem getFacturaClienteFijoMenuItem() {
         return FacturaClienteFijoMenuItem;
@@ -437,7 +443,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem ClientesFijosHistorialMenuItem;
     private javax.swing.JMenuItem ClientesFijosMenuItem;
     private javax.swing.JMenu ClientesMenu;
-    private javax.swing.JMenuItem ClientesMhistorialMenuItem;
     private javax.swing.JMenuItem FacturaClienteFijoMenuItem;
     private javax.swing.JMenu HistorialMenu;
     private javax.swing.JMenuItem IniciarSesionMenuItem;

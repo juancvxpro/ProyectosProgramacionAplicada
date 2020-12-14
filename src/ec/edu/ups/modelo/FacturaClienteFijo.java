@@ -9,7 +9,7 @@ package ec.edu.ups.modelo;
  *
  * @author user
  */
-public class FacturaClienteFijo {
+public class FacturaClienteFijo  {
 
     int id;
 
