@@ -1,3 +1,3 @@
 # ProyectosProgramacionAplicada
-** Aqui esta el tuturial (manual) con los pasos seguidos**
+**Aqui esta el tuturial (manual) con los pasos seguidos**
 https://view.genial.ly/5fd6a3d12131010d901ca723/presentation-proyectointerciclo
