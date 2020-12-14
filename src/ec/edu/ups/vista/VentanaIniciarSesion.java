@@ -40,6 +40,7 @@ public final class VentanaIniciarSesion extends javax.swing.JInternalFrame {
         } catch (ClassNotFoundException | IOException ex) {
             Logger.getLogger(VentanaIniciarSesion.class.getName()).log(Level.SEVERE, null, ex);
         }
+       // generarAdmin();
 
     }
 
