@@ -373,8 +373,12 @@ public class Tarifas extends javax.swing.JInternalFrame {
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         if (validarCampos()) {
+                 Tarifa tarifa1=null;
+        for (Tarifa tarifa : controladorTarifa.tarifas()) {
+                tarifa1=tarifa;
+            }
             // Double mediaHoraM, Double horaM, Double mensualM, Double mediaHoraA, Double horaA, Double mensualA, Double mediaHoraP, Double horaP, Double mensualP
-            Tarifa tarifa = new Tarifa(controladorTarifa.getTarifa().getCodigo(),
+            Tarifa tarifa = new Tarifa(tarifa1.getCodigo(),
                     Double.parseDouble(txtmediaHoraM.getText()), Double.parseDouble(txtHoraM.getText()),
                     Double.parseDouble(txtMensualM.getText()), Double.parseDouble(txtmediaHoraA.getText()),
                     Double.parseDouble(txtHoraA.getText()), Double.parseDouble(txtMensualA.getText()),

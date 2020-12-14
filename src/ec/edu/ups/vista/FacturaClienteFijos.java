@@ -71,6 +71,8 @@ public class FacturaClienteFijos extends javax.swing.JInternalFrame {
         jLabel16 = new javax.swing.JLabel();
         txtTelefono = new javax.swing.JTextField();
 
+        setClosable(true);
+
         jLabel17.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel17.setText("I.V.A 12%:");
 

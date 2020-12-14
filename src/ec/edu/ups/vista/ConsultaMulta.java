@@ -139,7 +139,7 @@ public class ConsultaMulta extends javax.swing.JInternalFrame {
         } else {
             String r = controladorEspacios.buscarEspacioAsignado(Integer.parseInt(txtConsulta.getText().trim()));
 
-            if (r.equals("")) {
+            if (r.equals("")||r==null) {
                 JOptionPane.showMessageDialog(this, "El espacio solicitado no cuenta con algún tipo de servicio de arrendamiento o multa");
             } else {
                 int id = Integer.parseInt(r);

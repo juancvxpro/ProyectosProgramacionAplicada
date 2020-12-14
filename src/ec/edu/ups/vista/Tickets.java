@@ -723,8 +723,7 @@ public class Tickets extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
     private void btnRetirarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRetirarActionPerformed
-        cargarCbxEspaciosDisp();
-        cargarClientesTblEgresados();
+       
 
         Calendar fechaSalida = new GregorianCalendar();
         // String fecha =""+fechaIngreso.get(Calendar.DAY_OF_MONTH)+"/"+fechaIngreso.get(Calendar.MONTH)+"/"+fechaIngreso.get(Calendar.YEAR);

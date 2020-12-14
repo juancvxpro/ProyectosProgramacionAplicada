@@ -39,6 +39,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private ClientesFijosPuesto clientesFijosPuesto;
     private Reportes reportes;
     private FacturaClienteMo facturaClienteM;
+    private FacturaClienteFijos facturaClienteFijo;
 
     private controladorUsuario controladorUsuario;
     private controladorTarifa controladorTarifa;
@@ -75,6 +76,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         clientesFijosPuesto = new ClientesFijosPuesto(controladorClienteFijo,controladorHistorialClienteF);
         reportes= new Reportes(controladorIngresos,controladorEgreso);
         facturaClienteM= new FacturaClienteMo(controladorFacturaClienteM,controladorTicketCliente);
+         facturaClienteFijo = new FacturaClienteFijos(controladorFacturaClienteFijo,controladorClienteFijo);
         
         
         
@@ -286,7 +288,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_TicketsMenuItemActionPerformed
 
     private void FacturaClienteFijoMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FacturaClienteFijoMenuItemActionPerformed
-      
+  desktopPane.add(facturaClienteFijo);
+  facturaClienteFijo.setVisible(true);
     }//GEN-LAST:event_FacturaClienteFijoMenuItemActionPerformed
 
     private void CerrarSesionMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CerrarSesionMenuItemActionPerformed

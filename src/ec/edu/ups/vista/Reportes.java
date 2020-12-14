@@ -43,7 +43,8 @@ public class Reportes extends javax.swing.JInternalFrame {
              Logger.getLogger(Reportes.class.getName()).log(Level.SEVERE, null, ex);
          }
        
-        
+        cargarIngresosTbl();
+        cargarEgresosTbl();
     }
 
     /**

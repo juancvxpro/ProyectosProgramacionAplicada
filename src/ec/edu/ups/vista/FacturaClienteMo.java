@@ -85,6 +85,7 @@ public class FacturaClienteMo extends javax.swing.JInternalFrame {
         jLabel18 = new javax.swing.JLabel();
         btnCargarDatos = new javax.swing.JButton();
 
+        setClosable(true);
         setTitle("Factura Cliente Momentaneo");
 
         jLabel11.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
