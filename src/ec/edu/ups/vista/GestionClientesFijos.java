@@ -7,8 +7,10 @@ package ec.edu.ups.vista;
 
 import ec.edu.ups.controlador.controladorClienteFijo;
 import ec.edu.ups.controlador.controladorEspacios;
+import ec.edu.ups.controlador.controladorIngreso;
 import ec.edu.ups.controlador.controladorTarifa;
 import ec.edu.ups.modelo.ClienteFijo;
+import ec.edu.ups.modelo.Ingresos;
 import ec.edu.ups.modelo.Tarifa;
 import java.io.IOException;
 import java.util.Calendar;
@@ -24,11 +26,12 @@ import javax.swing.table.DefaultTableModel;
  * @author user
  */
 public final class GestionClientesFijos extends javax.swing.JInternalFrame {
-    private String ruta;
+    private String ruta ;
     private int id;
     private final controladorEspacios controladorEspacios;
     private final controladorClienteFijo controladorClienteFijo;
     private final controladorTarifa controladorTarifa;
+    private controladorIngreso controladorIngreso;
     private final Calendar fechaRegistro;
     int anio;
     int mes;
@@ -36,11 +39,12 @@ public final class GestionClientesFijos extends javax.swing.JInternalFrame {
     
     int numMeses=0;
     
-    public GestionClientesFijos(controladorClienteFijo controladorClienteFijo, controladorTarifa controladorTarifa,controladorEspacios controladorEspacios) {
+    public GestionClientesFijos(controladorClienteFijo controladorClienteFijo, controladorTarifa controladorTarifa,controladorEspacios controladorEspacios,controladorIngreso controladorIngreso) {
         initComponents();
         this.controladorEspacios=controladorEspacios;
         this.controladorClienteFijo=controladorClienteFijo;
         this.controladorTarifa=controladorTarifa;
+        this.controladorIngreso=controladorIngreso;
         fechaRegistro = new GregorianCalendar();
         anio=fechaRegistro.get(Calendar.YEAR);
         mes=fechaRegistro.get(Calendar.MONTH);
@@ -49,6 +53,7 @@ public final class GestionClientesFijos extends javax.swing.JInternalFrame {
         //controladorEspacios.cargarEspaciosDefault();
          
         try {
+            controladorIngreso.cargarDatos();
             controladorTarifa.cargarDatos();
             controladorClienteFijo.cargarDatos();
             controladorEspacios.cargarDatos();
@@ -694,6 +699,16 @@ public final class GestionClientesFijos extends javax.swing.JInternalFrame {
           
            double multa= controladorClienteFijo.generarMulta(cliente);
                cliente.setMulta(multa);
+               
+               if(cliente.getMulta()!=0){
+               Ingresos ingreso = new Ingresos();
+            ingreso.setId(controladorIngreso.generarId());
+            Calendar fh= new GregorianCalendar();
+            ingreso.setFechaHora(fh);
+            ingreso.setDescripcion(" Paga multa : Cliente "+cliente.getNombre()+" "+cliente.getApellido()+ " con CI:  "+cliente.getCedula()+"");
+            ingreso.setIngreso(cliente.getMulta());
+            controladorIngreso.crear(ingreso);
+               }
           
           if(controladorEspacios.AsignarEspacio(Integer.parseInt(cbxEspacioAsignar.getSelectedItem().toString().trim()),""+cliente.getId())){
                 try {
@@ -705,7 +720,21 @@ public final class GestionClientesFijos extends javax.swing.JInternalFrame {
           }
    
         if(controladorClienteFijo.crear(cliente)){
+            Ingresos ingreso = new Ingresos();
+            ingreso.setId(controladorIngreso.generarId());
+            Calendar fh= new GregorianCalendar();
+            ingreso.setFechaHora(fh);
+            ingreso.setDescripcion("Nuevo Cliente "+cliente.getNombre()+" "+cliente.getApellido()+ " con CI:  "+cliente.getCedula());
+            ingreso.setIngreso(cliente.getAbono());
+            controladorIngreso.crear(ingreso);
              JOptionPane.showMessageDialog(this, "Cliente registrado con exito");
+             
+             
+                 try {
+                     controladorIngreso.guardarDatos("datos/Ingresos.obj");
+                 } catch (IOException ex) {
+                     Logger.getLogger(GestionClientesFijos.class.getName()).log(Level.SEVERE, null, ex);
+                 }
            try {
                     controladorClienteFijo.guardarDatos(ruta);
                     
@@ -744,7 +773,24 @@ public final class GestionClientesFijos extends javax.swing.JInternalFrame {
              
           double multa= controladorClienteFijo.generarMulta(cliente);
                cliente.setMulta(multa);
+               
+                   if(cliente.getMulta()!=0){
+               Ingresos ingreso = new Ingresos();
+            ingreso.setId(controladorIngreso.generarId());
+            Calendar fh= new GregorianCalendar();
+            ingreso.setFechaHora(fh);
+            ingreso.setDescripcion(" Paga multa : Cliente "+cliente.getNombre()+" "+cliente.getApellido()+ " con CI:  "+cliente.getCedula()+"");
+            ingreso.setIngreso(cliente.getMulta());
+            controladorIngreso.crear(ingreso);
+               }
         if(controladorClienteFijo.actualizar(cliente)){
+            Ingresos ingreso = new Ingresos();
+            ingreso.setId(controladorIngreso.generarId());
+            Calendar fh= new GregorianCalendar();
+            ingreso.setFechaHora(fh);
+            ingreso.setDescripcion(" Cliente Abona "+cliente.getNombre()+" "+cliente.getApellido()+ " con CI:  "+cliente.getCedula());
+            ingreso.setIngreso(cliente.getAbono());
+            controladorIngreso.crear(ingreso);
             controladorEspacios.AsignarEspacio(Integer.parseInt(txtEspActual.getText().trim()), "");
             if(controladorEspacios.AsignarEspacio(Integer.parseInt(cbxEspacioAsignar.getSelectedItem().toString().trim()), txtCedula.getText().trim())){
                 try {
@@ -755,6 +801,7 @@ public final class GestionClientesFijos extends javax.swing.JInternalFrame {
                 }
           }
                 try {
+                    controladorIngreso.guardarDatos("datos/Ingresos.obj");
                     controladorClienteFijo.guardarDatos(ruta);
                     controladorEspacios.guardarDatos();
                     JOptionPane.showMessageDialog(this, "Datos actualizados con exito");

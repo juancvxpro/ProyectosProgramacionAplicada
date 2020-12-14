@@ -10,7 +10,10 @@ import ec.edu.ups.controlador.controladorEspacios;
 import ec.edu.ups.controlador.controladorTicketCliente;
 import ec.edu.ups.modelo.ClienteFijo;
 import ec.edu.ups.modelo.TicketClienteMomentaneo;
+import java.io.IOException;
 import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -28,6 +31,14 @@ public class ConsultaMulta extends javax.swing.JInternalFrame {
         this.controladorEspacios = controladorEspacios;
         this.controladorClienteFijo = controladorClienteFijo;
         this.controladorTicketCliente = controladorTicketCliente;
+        
+        try {
+            controladorEspacios.cargarDatos();
+            controladorClienteFijo.cargarDatos();
+            controladorTicketCliente.cargarDatos();
+        } catch (ClassNotFoundException | IOException ex) {
+            Logger.getLogger(ConsultaMulta.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

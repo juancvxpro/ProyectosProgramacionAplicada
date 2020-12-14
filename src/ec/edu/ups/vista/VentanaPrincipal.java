@@ -35,6 +35,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private Tarifas tarifas;
     private GestionClientesFijos gestionClienteFijo;
     private Tickets tickets;
+    private ConsultaMulta consultaMulta;
+    private ClientesFijosPuesto clientesFijosPuesto;
 
     private controladorUsuario controladorUsuario;
     private controladorTarifa controladorTarifa;
@@ -65,8 +67,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         ventanaIniciarSesion = new VentanaIniciarSesion(this, controladorUsuario);
         gestionUsuarios = new GestionUsuarios(controladorUsuario);
         tarifas = new Tarifas(controladorTarifa);
-        gestionClienteFijo = new GestionClientesFijos(controladorClienteFijo, controladorTarifa, controladorEspacios);
+        gestionClienteFijo = new GestionClientesFijos(controladorClienteFijo, controladorTarifa, controladorEspacios,controladorIngresos);
         tickets = new Tickets(controladorTicketCliente, controladorEspacios, controladorTarifa);
+        consultaMulta = new ConsultaMulta(controladorEspacios,controladorClienteFijo,controladorTicketCliente);
+        clientesFijosPuesto = new ClientesFijosPuesto(controladorClienteFijo,controladorHistorialClienteF);
+        
+        
+        
         menuFacturas.setVisible(false);
         RegistrosMonetariosMenuItem.setVisible(false);
         VerTablasMenu.setVisible(false);
@@ -285,7 +292,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_CerrarSesionMenuItemActionPerformed
 
     private void MultasMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MultasMenuItemActionPerformed
-        // TODO add your handling code here:
+        desktopPane.add(consultaMulta);
+        consultaMulta.setVisible(true);
     }//GEN-LAST:event_MultasMenuItemActionPerformed
 
     private void ClientesMhistorialMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ClientesMhistorialMenuItemActionPerformed
