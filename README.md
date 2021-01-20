@@ -1,3 +1,3 @@
-# ProyectosProgramacionAplicada
+# Practica Base de Datos_ Sentencias SQL
 
-**Para la visualizacion de los proyectos se lo pueden observar desde el branch**
+
