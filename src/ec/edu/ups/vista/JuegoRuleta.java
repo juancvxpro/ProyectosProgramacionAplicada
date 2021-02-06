@@ -4,18 +4,26 @@
  * and open the template in the editor.
  */
 package ec.edu.ups.vista;
-
-/**
- *
- * @author user
- */
+import ec.edu.ups.Hilos.Ruleta;
+import ec.edu.ups.controlador.controladorJugador;
+import ec.edu.ups.modelo.JugadorRuleta;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
 public class JuegoRuleta extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form JuegoRuleta
-     */
-    public JuegoRuleta() {
+    private controladorJugador controladorJugador;
+    private List<JugadorRuleta> jugadores;//Lista temporal
+    private int segundos;
+    private boolean isStop;
+    private String isPause;
+    public JuegoRuleta(controladorJugador controladorJugador) {
         initComponents();
+        this.controladorJugador=controladorJugador;
+        jugadores= new ArrayList<>();
+        segundos=0;
+        isStop=false;
+        isPause="verdad";
     }
 
     /**
@@ -28,30 +36,30 @@ public class JuegoRuleta extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        lblId = new javax.swing.JLabel();
-        txtId = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
         lblSaldo = new javax.swing.JLabel();
         lblValorS = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        txtArea = new javax.swing.JTextArea();
+        btnStop = new javax.swing.JButton();
+        btnPause = new javax.swing.JButton();
+        btnStart = new javax.swing.JButton();
         lblSaldo1 = new javax.swing.JLabel();
-        lblSaldo2 = new javax.swing.JLabel();
         lblValorBanca = new javax.swing.JLabel();
-        txtId1 = new javax.swing.JTextField();
-        lblSaldo3 = new javax.swing.JLabel();
+        jButton4 = new javax.swing.JButton();
+        cbxItemJuego = new javax.swing.JComboBox<>();
 
         setClosable(true);
         setTitle("Juego Ruleta");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "RULETA FRANCESA", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 1, 12), new java.awt.Color(0, 153, 51))); // NOI18N
 
-        lblId.setText("Ingrese id de jugador:");
-
-        btnBuscar.setText("agregar");
+        btnBuscar.setText("Agregar Jugador");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
 
         lblSaldo.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         lblSaldo.setText("SALDO:");
@@ -59,96 +67,99 @@ public class JuegoRuleta extends javax.swing.JInternalFrame {
         lblValorS.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         lblValorS.setText("50000");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        txtArea.setColumns(20);
+        txtArea.setRows(5);
+        jScrollPane1.setViewportView(txtArea);
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/ups/icons/iconStop.png"))); // NOI18N
+        btnStop.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/ups/icons/iconStop.png"))); // NOI18N
+        btnStop.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnStopActionPerformed(evt);
+            }
+        });
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/ups/icons/iconPause.png"))); // NOI18N
+        btnPause.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/ups/icons/iconPause.png"))); // NOI18N
+        btnPause.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPauseActionPerformed(evt);
+            }
+        });
 
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/ups/icons/iconPlay.png"))); // NOI18N
+        btnStart.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/ups/icons/iconPlay.png"))); // NOI18N
+        btnStart.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnStartActionPerformed(evt);
+            }
+        });
 
         lblSaldo1.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         lblSaldo1.setText("Numero de la banca:");
 
-        lblSaldo2.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        lblSaldo2.setText("Tiempo Intervalo:");
-
         lblValorBanca.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         lblValorBanca.setText("-");
 
-        lblSaldo3.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        lblSaldo3.setText("segundos");
+        jButton4.setText("Asignar Tiempo");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
+        cbxItemJuego.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--Seleccionar Juego--", "concreto", "parImpar", "martingala" }));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(35, 35, 35)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(lblId)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtId1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(10, 10, 10)
                         .addComponent(btnBuscar)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(31, 31, 31)
-                                .addComponent(lblSaldo2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(12, 12, 12)
-                                .addComponent(lblSaldo3))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(lblSaldo)
-                                .addGap(15, 15, 15)
-                                .addComponent(lblValorS)
-                                .addGap(18, 18, 18)
-                                .addComponent(lblSaldo1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblValorBanca))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(43, 43, 43)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(14, 14, 14)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(44, Short.MAX_VALUE))
+                        .addComponent(lblSaldo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblValorS)
+                        .addGap(18, 18, 18)
+                        .addComponent(lblSaldo1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblValorBanca)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(8, 8, 8)
+                        .addComponent(btnStart, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnPause, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnStop, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                        .addComponent(cbxItemJuego, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblId)
                     .addComponent(btnBuscar)
                     .addComponent(lblSaldo)
                     .addComponent(lblValorS)
                     .addComponent(lblSaldo1)
                     .addComponent(lblValorBanca)
-                    .addComponent(txtId1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblSaldo2)
-                    .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblSaldo3))
-                .addGap(9, 9, 9)
+                    .addComponent(jButton4))
+                .addGap(26, 26, 26)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnStop, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton3)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(34, Short.MAX_VALUE))
+                    .addComponent(btnPause, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnStart)
+                    .addComponent(cbxItemJuego, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -170,24 +181,80 @@ public class JuegoRuleta extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    public int numList (){
+        int cont=0;
+    for(JugadorRuleta r: jugadores){
+    cont++;
+    }
+    return cont;
+    }
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        if(jugadores!=null){
+            String id  = JOptionPane.showInputDialog(this,"Ingrese id de jugador");
+            
+            String num  = JOptionPane.showInputDialog(this,"Ingrese numero a apostar 1-36");
+        JugadorRuleta j = new JugadorRuleta();
+        
+        if(Integer.parseInt(num)>=1 && Integer.parseInt(num)<=36){
+        j.setNumero(Integer.parseInt(num));
+        }
+        
+        j=controladorJugador.buscar(Integer.parseInt(id.trim()));
+        jugadores.add(j);
+        controladorJugador.actualizar(j);
+        JOptionPane.showMessageDialog(this, "Jugador: "+j.getNombre()+" asignado exitosamente");
+        }
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void btnStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStartActionPerformed
+      
+        if(jugadores!=null){
+           Ruleta[] vHilos = new Ruleta[numList()];
+           for(int i=0;i<numList();i++){
+               
+               vHilos[i]=new Ruleta(jugadores,segundos,txtArea,lblValorS,lblValorBanca,controladorJugador,cbxItemJuego.getSelectedItem().toString().trim());
+               Thread hilo = new Thread (vHilos[i]);
+               hilo.start();
+              /* if(isStop){
+               hilo.stop();
+               }
+               if(isPause.equals("verdad")){
+               vHilos[i].stop();
+               }else if(isPause.equals("resume")){
+               vHilos[i].reanudar();
+               }*/
+              
+           }
+       }
+    }//GEN-LAST:event_btnStartActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+       String ms  = JOptionPane.showInputDialog(this,"Ingrese tiempo de intervalo entre procesos");
+       segundos=Integer.parseInt(ms);
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void btnPauseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPauseActionPerformed
+        isPause="resume";
+    }//GEN-LAST:event_btnPauseActionPerformed
+
+    private void btnStopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStopActionPerformed
+       isStop=true;
+    }//GEN-LAST:event_btnStopActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton btnPause;
+    private javax.swing.JButton btnStart;
+    private javax.swing.JButton btnStop;
+    private javax.swing.JComboBox<String> cbxItemJuego;
+    private javax.swing.JButton jButton4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JLabel lblId;
     private javax.swing.JLabel lblSaldo;
     private javax.swing.JLabel lblSaldo1;
-    private javax.swing.JLabel lblSaldo2;
-    private javax.swing.JLabel lblSaldo3;
     private javax.swing.JLabel lblValorBanca;
     private javax.swing.JLabel lblValorS;
-    private javax.swing.JTextField txtId;
-    private javax.swing.JTextField txtId1;
+    private javax.swing.JTextArea txtArea;
     // End of variables declaration//GEN-END:variables
 }

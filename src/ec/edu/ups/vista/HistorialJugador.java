@@ -74,6 +74,11 @@ public class HistorialJugador extends javax.swing.JInternalFrame {
         jScrollPane1.setViewportView(tblJugadores);
 
         btnMostrarTodos.setText("Mostrar Todos");
+        btnMostrarTodos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMostrarTodosActionPerformed(evt);
+            }
+        });
 
         btnLimpiar.setText("Limpiar");
         btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
@@ -141,7 +146,7 @@ public class HistorialJugador extends javax.swing.JInternalFrame {
         modelo.setRowCount(0);
     }
 
-    public void cargarPersonasTbl() {
+    public void cargarJugadoresTbl() {
         DefaultTableModel modelo = (DefaultTableModel) tblJugadores.getModel();
         modelo.setRowCount(0);
         if (controladorJugador.buscarTodo()!=null) {
@@ -163,6 +168,10 @@ public class HistorialJugador extends javax.swing.JInternalFrame {
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
         limpiarTabla();
     }//GEN-LAST:event_btnLimpiarActionPerformed
+
+    private void btnMostrarTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarTodosActionPerformed
+      cargarJugadoresTbl();
+    }//GEN-LAST:event_btnMostrarTodosActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

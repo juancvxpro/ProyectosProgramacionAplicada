@@ -5,6 +5,7 @@
  */
 package ec.edu.ups.vista;
 
+
 import ec.edu.ups.controlador.controladorJugador;
 
 /**
@@ -17,13 +18,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
    HistorialJugador ventanaHistorial;
    JuegoRuleta juegoRuleta;
    
+   
    controladorJugador controladorJugador;
     public VentanaPrincipal() {
         initComponents();
          controladorJugador = new controladorJugador();
         ventanaJugador = new CrearJugador(controladorJugador);
-        ventanaHistorial= new HistorialJugador();
-        juegoRuleta = new JuegoRuleta();
+        ventanaHistorial= new HistorialJugador(controladorJugador);
+        juegoRuleta = new JuegoRuleta(controladorJugador);
        
         
     }

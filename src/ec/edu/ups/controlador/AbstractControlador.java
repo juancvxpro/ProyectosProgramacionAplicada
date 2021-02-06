@@ -95,7 +95,7 @@ public abstract class AbstractControlador <E> {
      
      public List<E> buscarTodo (){
      
-        return em.createQuery("Select t from"+ clase.getSimpleName()+ "t").getResultList();
+        return em.createQuery("Select t from "+ clase.getSimpleName()+ " t").getResultList();
      }
     
      public abstract boolean  validar(E objeto) throws Exception;

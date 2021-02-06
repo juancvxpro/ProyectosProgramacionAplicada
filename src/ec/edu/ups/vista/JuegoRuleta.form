@@ -57,47 +57,39 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
+                  <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <Component id="btnBuscar" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="jButton4" min="-2" pref="115" max="-2" attributes="0"/>
+                      </Group>
+                      <Component id="jScrollPane1" min="-2" pref="259" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
+                          <Component id="lblSaldo" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="lblId" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblValorS" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="txtId1" min="-2" pref="25" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                          <Component id="btnBuscar" min="-2" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
-                                  <Component id="lblSaldo2" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="txtId" min="-2" pref="31" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                                  <Component id="lblSaldo3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="lblSaldo" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
-                                  <Component id="lblValorS" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="lblSaldo1" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="lblValorBanca" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
+                          <Component id="lblSaldo1" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="lblValorBanca" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
-                          <Component id="jScrollPane1" min="-2" pref="259" max="-2" attributes="0"/>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="jButton3" min="-2" pref="58" max="-2" attributes="0"/>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="jButton2" min="-2" pref="53" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
-                          <Component id="jButton1" min="-2" pref="54" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+                          <Component id="btnStart" min="-2" pref="58" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                          <Component id="btnPause" min="-2" pref="53" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="btnStop" min="-2" pref="54" max="-2" attributes="0"/>
+                          <EmptySpace pref="26" max="32767" attributes="0"/>
+                          <Component id="cbxItemJuego" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace pref="44" max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -106,49 +98,34 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="lblId" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btnBuscar" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="lblSaldo" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="lblValorS" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="lblSaldo1" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="lblValorBanca" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtId1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jButton4" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="lblSaldo2" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtId" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="lblSaldo3" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="btnStop" min="-2" pref="59" max="-2" attributes="0"/>
                       <Component id="jScrollPane1" min="-2" max="-2" attributes="0"/>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jButton2" min="-2" pref="59" max="-2" attributes="0"/>
-                              <Component id="jButton3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jButton1" alignment="0" min="-2" pref="59" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
+                      <Component id="btnPause" alignment="0" min="-2" pref="59" max="-2" attributes="0"/>
+                      <Component id="btnStart" min="-2" max="-2" attributes="0"/>
+                      <Component id="cbxItemJuego" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="34" max="32767" attributes="0"/>
+                  <EmptySpace pref="37" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JLabel" name="lblId">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Ingrese id de jugador:"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="txtId">
-        </Component>
         <Component class="javax.swing.JButton" name="btnBuscar">
           <Properties>
-            <Property name="text" type="java.lang.String" value="agregar"/>
+            <Property name="text" type="java.lang.String" value="Agregar Jugador"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBuscarActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="lblSaldo">
           <Properties>
@@ -173,7 +150,7 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JTextArea" name="jTextArea1">
+            <Component class="javax.swing.JTextArea" name="txtArea">
               <Properties>
                 <Property name="columns" type="int" value="20"/>
                 <Property name="rows" type="int" value="5"/>
@@ -181,26 +158,35 @@
             </Component>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.JButton" name="jButton1">
+        <Component class="javax.swing.JButton" name="btnStop">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/ec/edu/ups/icons/iconStop.png"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnStopActionPerformed"/>
+          </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton2">
+        <Component class="javax.swing.JButton" name="btnPause">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/ec/edu/ups/icons/iconPause.png"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPauseActionPerformed"/>
+          </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton3">
+        <Component class="javax.swing.JButton" name="btnStart">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/ec/edu/ups/icons/iconPlay.png"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnStartActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="lblSaldo1">
           <Properties>
@@ -208,14 +194,6 @@
               <Font name="Arial" size="12" style="1"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Numero de la banca:"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="lblSaldo2">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Arial" size="12" style="1"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Tiempo Intervalo:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lblValorBanca">
@@ -226,15 +204,28 @@
             <Property name="text" type="java.lang.String" value="-"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txtId1">
-        </Component>
-        <Component class="javax.swing.JLabel" name="lblSaldo3">
+        <Component class="javax.swing.JButton" name="jButton4">
           <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Arial" size="12" style="1"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="segundos"/>
+            <Property name="text" type="java.lang.String" value="Asignar Tiempo"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton4ActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JComboBox" name="cbxItemJuego">
+          <Properties>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="4">
+                <StringItem index="0" value="--Seleccionar Juego--"/>
+                <StringItem index="1" value="concreto"/>
+                <StringItem index="2" value="parImpar"/>
+                <StringItem index="3" value="martingala"/>
+              </StringArray>
+            </Property>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>

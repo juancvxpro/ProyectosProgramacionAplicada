@@ -25,16 +25,18 @@ public class Ruleta implements Runnable{
     private  controladorJugador control;
     private  boolean iterar=true;
    
-    private final JLabel saldoBanca;
+    private JLabel saldoBanca;
     
-    public Ruleta(List<JugadorRuleta> jugadores, int segundos,JTextArea descripcion,JLabel saldoBanca,controladorJugador control,String juego) {
+    private JLabel numeroB;
+    
+    public Ruleta(List<JugadorRuleta> jugadores, int segundos,JTextArea descripcion,JLabel saldoBanca,JLabel numeroB,controladorJugador control,String juego) {
         this.jugadores=(ArrayList<JugadorRuleta>) jugadores;
         this.segundos=segundos;
         this.descripcion= descripcion;
         this.control=control;
         this.juego=juego;
-       
         this.saldoBanca=saldoBanca;
+        this.numeroB=numeroB;
     }
    
      int numeroBanca=0;
@@ -71,6 +73,7 @@ public class Ruleta implements Runnable{
                     return jugador;
                 }).forEachOrdered((JugadorRuleta _item) -> {
                     tiempoEsperar (segundos);
+                    iterar=false;
                 });
 break;
 
@@ -89,6 +92,7 @@ break;
                             j.setnLost(jugador.getnLost()+1);
                             descripcion.setText(jugador.getNombre()+ "Pierde");
                             tiempoEsperar (segundos);
+                            iterar=false;
                         }
                 });
 break;
@@ -110,6 +114,8 @@ break;
                     j.setIsDuplicar(true);
                     descripcion.setText(jugador.getNombre()+ "Pierde y se duplica apuesta");
                     control.actualizar(j);
+                    tiempoEsperar (segundos);
+                    iterar=false;
                 });
 break;
 
@@ -120,7 +126,9 @@ break;
             
         }
     }
-
+    public void reanudar(){
+    iterar=true;
+    }
     public boolean isIterar() {
         return iterar;
     }
@@ -135,7 +143,7 @@ break;
              try {
                         descripcion.setText("Esperando...... "+segundos);
                         Thread.sleep(segundos);
-                       descripcion.setText("");
+                      
                 } catch (InterruptedException e) {
               
                 }
@@ -151,7 +159,7 @@ break;
                     j.setCantidadApuesta((jugador.getCantidadApuesta())*2);
                     j.setnApuestas(jugador.getnApuestas()+1);
                     tiempoEsperar(segundos);
-                    control.actualizar(j);
+                    //control.actualizar(j);
          }else {
                     
                     
@@ -161,7 +169,7 @@ break;
                     j.setCantidadApuesta(jugador.getCantidadApuesta()+10);
                     j.setnApuestas(jugador.getnApuestas()+1);
                     tiempoEsperar(segundos);
-                    control.actualizar(j);
+                   // control.actualizar(j);
          }
                 
             }
@@ -170,6 +178,7 @@ break;
  
     private int RandomNumber (){
         int numero = ThreadLocalRandom.current().nextInt(0, 36 + 1);
+        numeroB.setText(""+numero);
         return numero;
     
     }
@@ -180,6 +189,10 @@ break;
         }else {
         return 1;
         }
+    }
+    
+    public void stop(){
+    iterar=false;
     }
     }
     
